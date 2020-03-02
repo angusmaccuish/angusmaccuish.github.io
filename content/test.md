@@ -1,4 +1,8 @@
-title: Hello, World
-date: March 1st, 2020
+Title: Hello, World
+Date: 2010-03-02 15:42
+Category: General
+Tags: python, general
+Authors: Angus MacCuish
+Summary: Just a quick test
 
-Hello, World
+This is just a test of the github workflow.

@@ -1,0 +1,7 @@
+name: web
+dependencies:
+  - python=3.7.3
+  - pip:
+    - pelican
+    - Markdown
+    - ghp-import

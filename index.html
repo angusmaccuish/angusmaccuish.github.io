@@ -28,88 +28,794 @@
                                                                                 
 
                                                                                 
+<h2 class='likechapterHead'><a id='x1-1000'></a>Contents</h2>
 <div class='tableofcontents'>
-<span class='likechapterToc'><a href='indexli1.html#x2-1000' id='QQ2-2-1'>Contents</a></span>
-<br /><span class='chapterToc'>1 <a href='indexch1.html#x3-20001' id='QQ2-3-2'>Introduction</a></span>
-<br /><span class='chapterToc'>2 <a href='indexch2.html#x6-30002' id='QQ2-6-3'>Intra-Bucket Aggregation</a></span>
-<br /><span class='sectionToc'>2.1 <a href='indexch2.html#x6-40002.1' id='QQ2-6-4'>Delta/Vega Risk</a></span>
-<br /><span class='sectionToc'>2.2 <a href='indexch2.html#x6-70002.2' id='QQ2-6-9'>Curvature Risk</a></span>
-<br /><span class='sectionToc'>2.3 <a href='indexch2.html#x6-80002.3' id='QQ2-6-10'>Summary</a></span>
-<br /><span class='chapterToc'>3 <a href='indexch3.html#x7-90003' id='QQ2-7-11'>Inter-Bucket Aggregation</a></span>
-<br /><span class='sectionToc'>3.1 <a href='indexch3.html#x7-100003.1' id='QQ2-7-12'>Overview</a></span>
-<br /><span class='sectionToc'>3.2 <a href='indexch3.html#x7-110003.2' id='QQ2-7-13'>Delta/Vega</a></span>
-<br /><span class='sectionToc'>3.3 <a href='indexch3.html#x7-120003.3' id='QQ2-7-14'>Curvature</a></span>
-<br /><span class='chapterToc'>4 <a href='indexch4.html#x8-130004' id='QQ2-8-15'>FX Risk</a></span>
-<br /><span class='sectionToc'>4.1 <a href='indexch4.html#x8-140004.1' id='QQ2-8-16'>FX Delta</a></span>
-<br /><span class='sectionToc'>4.2 <a href='indexch4.html#x8-150004.2' id='QQ2-8-17'>FX Vega</a></span>
-<br /><span class='sectionToc'>4.3 <a href='indexch4.html#x8-160004.3' id='QQ2-8-18'>FX Curvature</a></span>
-<br /><span class='chapterToc'>5 <a href='indexch5.html#x9-170005' id='QQ2-9-19'>Equity Risk</a></span>
-<br /><span class='sectionToc'>5.1 <a href='indexch5.html#x9-180005.1' id='QQ2-9-20'>Equity Delta</a></span>
-<br /><span class='sectionToc'>5.2 <a href='indexch5.html#x9-190005.2' id='QQ2-9-21'>Equity Vega</a></span>
-<br /><span class='sectionToc'>5.3 <a href='indexch5.html#x9-200005.3' id='QQ2-9-22'>Equity Curvature</a></span>
-<br /><span class='chapterToc'>6 <a href='indexch6.html#x10-210006' id='QQ2-10-23'>GIRR: General Interest Rate Risk</a></span>
-<br /><span class='sectionToc'>6.1 <a href='indexch6.html#x10-220006.1' id='QQ2-10-24'>GIRR Delta</a></span>
-<br /><span class='sectionToc'>6.2 <a href='indexch6.html#x10-230006.2' id='QQ2-10-25'>GIRR Vega</a></span>
-<br /><span class='sectionToc'>6.3 <a href='indexch6.html#x10-240006.3' id='QQ2-10-26'>GIRR Curvature</a></span>
-<br /><span class='chapterToc'>7 <a href='indexch7.html#x11-250007' id='QQ2-11-27'>Commodity Risk</a></span>
+<span class='chapterToc'>1 <a href='#x1-20001' id='QQ2-1-2'>Introduction</a></span>
+<br /><span class='chapterToc'>2 <a href='#x1-30002' id='QQ2-1-3'>Intra-Bucket Aggregation</a></span>
+<br /><span class='sectionToc'>2.1 <a href='#x1-40002.1' id='QQ2-1-4'>Delta/Vega Risk</a></span>
+<br /><span class='subsectionToc'>2.1.1 <a href='#x1-50002.1.1' id='QQ2-1-5'>Partitioning the Intra-bucket Correlation Matrix</a></span>
+<br /><span class='subsectionToc'>2.1.2 <a href='#x1-60002.1.2' id='QQ2-1-6'>Further Partitioning of the Intra-bucket Correlation Matrix</a></span>
+<br /><span class='sectionToc'>2.2 <a href='#x1-70002.2' id='QQ2-1-9'>Curvature Risk</a></span>
+<br /><span class='sectionToc'>2.3 <a href='#x1-80002.3' id='QQ2-1-10'>Summary</a></span>
+<br /><span class='chapterToc'>3 <a href='#x1-90003' id='QQ2-1-11'>Inter-Bucket Aggregation</a></span>
+<br /><span class='sectionToc'>3.1 <a href='#x1-100003.1' id='QQ2-1-12'>Overview</a></span>
+<br /><span class='sectionToc'>3.2 <a href='#x1-110003.2' id='QQ2-1-13'>Delta/Vega</a></span>
+<br /><span class='sectionToc'>3.3 <a href='#x1-120003.3' id='QQ2-1-14'>Curvature</a></span>
+<br /><span class='chapterToc'>4 <a href='#x1-130004' id='QQ2-1-15'>FX Risk</a></span>
+<br /><span class='sectionToc'>4.1 <a href='#x1-140004.1' id='QQ2-1-16'>FX Delta</a></span>
+<br /><span class='sectionToc'>4.2 <a href='#x1-150004.2' id='QQ2-1-17'>FX Vega</a></span>
+<br /><span class='sectionToc'>4.3 <a href='#x1-160004.3' id='QQ2-1-18'>FX Curvature</a></span>
+<br /><span class='chapterToc'>5 <a href='#x1-170005' id='QQ2-1-19'>Equity Risk</a></span>
+<br /><span class='sectionToc'>5.1 <a href='#x1-180005.1' id='QQ2-1-20'>Equity Delta</a></span>
+<br /><span class='sectionToc'>5.2 <a href='#x1-190005.2' id='QQ2-1-21'>Equity Vega</a></span>
+<br /><span class='sectionToc'>5.3 <a href='#x1-200005.3' id='QQ2-1-22'>Equity Curvature</a></span>
+<br /><span class='chapterToc'>6 <a href='#x1-210006' id='QQ2-1-23'>GIRR: General Interest Rate Risk</a></span>
+<br /><span class='sectionToc'>6.1 <a href='#x1-220006.1' id='QQ2-1-24'>GIRR Delta</a></span>
+<br /><span class='sectionToc'>6.2 <a href='#x1-230006.2' id='QQ2-1-25'>GIRR Vega</a></span>
                                                                                 
 
                                                                                 
-<br /><span class='sectionToc'>7.1 <a href='indexch7.html#x11-260007.1' id='QQ2-11-28'>Commodity Delta</a></span>
-<br /><span class='sectionToc'>7.2 <a href='indexch7.html#x11-270007.2' id='QQ2-11-29'>Commodity Vega</a></span>
-<br /><span class='sectionToc'>7.3 <a href='indexch7.html#x11-280007.3' id='QQ2-11-30'>Commodity Curvature</a></span>
-<br /><span class='chapterToc'>8 <a href='indexch8.html#x12-290008' id='QQ2-12-31'>Credit Spread Risk</a></span>
-<br /><span class='sectionToc'>8.1 <a href='indexch8.html#x12-300008.1' id='QQ2-12-32'>Non-Securitised</a></span>
-<br /><span class='sectionToc'>8.2 <a href='indexch8.html#x12-340008.2' id='QQ2-12-36'>Securitised Non-CTP</a></span>
-<br /><span class='chapterToc'>9 <a href='indexch9.html#x13-380009' id='QQ2-13-40'>DRC: Default Risk Charge</a></span>
-<br /><span class='sectionToc'>9.1 <a href='indexch9.html#x13-390009.1' id='QQ2-13-41'>Non-Securitised</a></span>
-<br /><span class='sectionToc'>9.2 <a href='indexch9.html#x13-400009.2' id='QQ2-13-42'>Securitised Non-CTP</a></span>
-<br /><span class='chapterToc'>10 <a href='indexch10.html#x14-4100010' id='QQ2-14-43'>Implementation</a></span>
-<br /><span class='chapterToc'>11 <a href='indexch11.html#x15-4200011' id='QQ2-15-44'>Conclusion</a></span>
+<br /><span class='sectionToc'>6.3 <a href='#x1-240006.3' id='QQ2-1-26'>GIRR Curvature</a></span>
+<br /><span class='chapterToc'>7 <a href='#x1-250007' id='QQ2-1-27'>Commodity Risk</a></span>
+<br /><span class='sectionToc'>7.1 <a href='#x1-260007.1' id='QQ2-1-28'>Commodity Delta</a></span>
+<br /><span class='sectionToc'>7.2 <a href='#x1-270007.2' id='QQ2-1-29'>Commodity Vega</a></span>
+<br /><span class='sectionToc'>7.3 <a href='#x1-280007.3' id='QQ2-1-30'>Commodity Curvature</a></span>
+<br /><span class='chapterToc'>8 <a href='#x1-290008' id='QQ2-1-31'>Credit Spread Risk</a></span>
+<br /><span class='sectionToc'>8.1 <a href='#x1-300008.1' id='QQ2-1-32'>Non-Securitised</a></span>
+<br /><span class='subsectionToc'>8.1.1 <a href='#x1-310008.1.1' id='QQ2-1-33'>CSR Non-Securitised Delta</a></span>
+<br /><span class='subsectionToc'>8.1.2 <a href='#x1-320008.1.2' id='QQ2-1-34'>CSR Non-Securitised Vega</a></span>
+<br /><span class='subsectionToc'>8.1.3 <a href='#x1-330008.1.3' id='QQ2-1-35'>CSR Non-Securitised Curvature</a></span>
+<br /><span class='sectionToc'>8.2 <a href='#x1-340008.2' id='QQ2-1-36'>Securitised Non-CTP</a></span>
+<br /><span class='subsectionToc'>8.2.1 <a href='#x1-350008.2.1' id='QQ2-1-37'>CSR Securitised Non-CTP Delta</a></span>
+<br /><span class='subsectionToc'>8.2.2 <a href='#x1-360008.2.2' id='QQ2-1-38'>CSR Securitised Non-CTP Vega</a></span>
+<br /><span class='subsectionToc'>8.2.3 <a href='#x1-370008.2.3' id='QQ2-1-39'>CSR Securitised Non-CTP Curvature</a></span>
+<br /><span class='chapterToc'>9 <a href='#x1-380009' id='QQ2-1-40'>DRC: Default Risk Charge</a></span>
+<br /><span class='sectionToc'>9.1 <a href='#x1-390009.1' id='QQ2-1-41'>Non-Securitised</a></span>
+<br /><span class='sectionToc'>9.2 <a href='#x1-400009.2' id='QQ2-1-42'>Securitised Non-CTP</a></span>
+<br /><span class='chapterToc'>10 <a href='#x1-4100010' id='QQ2-1-43'>Implementation</a></span>
+<br /><span class='chapterToc'>11 <a href='#x1-4200011' id='QQ2-1-44'>Conclusion</a></span>
 </div>
                                                                                 
 
                                                                                 
+                                                                                
 
+                                                                                
+<h2 class='chapterHead'><span class='titlemark'>Chapter 1</span><br /><a id='x1-20001'></a>Introduction</h2>
+<!-- l. 3 --><p class='noindent'>Our aim is to describe algorithms which speed up the
+FRTB<span class='footnote-mark'><a href='index2.html#fn1x2'><sup class='textsuperscript'>1</sup></a></span><a id='x1-2001f1'></a> 
+standardised approach (SA), specifically the sensitivities-based
+method (SBM). We assume that the reader has a familiarity with the
+BCBS<span class='footnote-mark'><a href='index3.html#fn2x2'><sup class='textsuperscript'>2</sup></a></span><a id='x1-2003f2'></a> 
+documentation. Readers new to the subject, or wishing to find out specific details regarding
+the regulations, should refer to:
+</p>
+<div class='center'>
+<!-- l. 8 --><p class='noindent'>
+</p><!-- l. 9 --><p class='noindent'><a class='url' href='https://www.bis.org/basel_framework/standard/MAR.htm'><span class='cmtt-10x-x-109'>https://www.bis.org/basel_framework/standard/MAR.htm</span></a></p></div>
+<!-- l. 12 --><p class='noindent'>This text should be regarded as a supplement to the FRTB specification, and as such you will
+not find any definitions, nor will you find tables of risk weights or correlation values. These
+would just be a copy of those presented in the official documentation, and a pointless
+re-hashing of information which is very well explained at source. Our goal is to take the
+fundamental SBM formulae and convert them into fast algorithms, which can be implemented
+by practitioners.
+</p><!-- l. 17 --><p class='noindent'>To quote the specification:
+     </p><blockquote class='quote'>
+     <!-- l. 20 --><p class='noindent'>“The sensitivities of financial instruments to a prescribed list of risk factors
+     are used to calculate the delta, vega and curvature risk capital requirements.
+     These sensitivities are risk-weighted and then aggregated, first within risk
+     buckets (risk factors with common characteristics) and then across buckets
+     within the same risk class”</p></blockquote>
+<!-- l. 25 --><p class='noindent'>The above paragraph summarises our task: to aggregate the various risk-weighted sensitivities
+at the bucket level (<span class='cmti-10x-x-109'>intra</span>-bucket) and then across all the buckets (<span class='cmti-10x-x-109'>inter</span>-bucket), for the
+following risk classes:
+</p>
+                                                                                
+
+                                                                                
+     <ul class='itemize1'>
+     <li class='itemize'>General interest rate risk (GIRR)
+     </li>
+     <li class='itemize'>Credit spread risk (CSR): non-securitisations
+     </li>
+     <li class='itemize'>CSR: securitisations (non-correlation trading portfolio, or non-CTP)
+     </li>
+     <li class='itemize'>CSR: securitisations (correlation trading portfolio, or CTP)
+     </li>
+     <li class='itemize'>Equity risk
+     </li>
+     <li class='itemize'>Commodity risk
+     </li>
+     <li class='itemize'>Foreign exchange (FX) risk</li></ul>
+<!-- l. 38 --><p class='noindent'>The risk charge for each risk class is defined as the sum of the delta, vega and curvature
+positions, and calculated for each of the following stress scenarios: low, medium and high
+(where each scenario specifies different intra-bucket and inter-bucket correlation coefficients).
+Summing over all risk classes, the largest of the low/medium/high scenario charges is selected
+as the total risk charge.
+</p><!-- l. 43 --><p class='noindent'>It should be understood that this calculation is executed in a particular context. For example
+we may want the total portfolio risk charge, which necessitates aggregating <span class='cmti-10x-x-109'>all </span>the in-scope
+trade positions. Or perhaps we need to compute the desk-level capital charge, which would
+require partitioning the trades by desk before performing the calculation on each dataset. If we
+are asked to compute the risk charge per book, this may involve hundreds, possibly thousands
+of individual book calculations. In the latter case, even if each calculation has a tolerable
+execution speed, this can still lead to long running computations when the number
+of books is large. We will show that it is possible to compute <span class='cmti-10x-x-109'>all </span>the individual
+results in one bulk calculation, the only requirement being that each subset of data
+is ‘tagged’ with a unique identifier in order to distinguish it from the others (we
+                                                                                
+
+                                                                                
+will refer to these individual subsets as ‘groups’). Note that if the request spans
+multiple business dates, then handling each date separately is advised if allowance is
+to be made for risk weights and correlations varying over time, due to regulatory
+changes.
+</p><!-- l. 54 --><p class='noindent'>In the chapters which follow, we describe the generic intra-bucket and inter-bucket aggregation
+algorithms, then discuss details specific to each risk class.
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+</p>
+<h2 class='chapterHead'><span class='titlemark'>Chapter 2</span><br /><a id='x1-30002'></a>Intra-Bucket Aggregation</h2>
+<h3 class='sectionHead'><span class='titlemark'>2.1   </span> <a id='x1-40002.1'></a>Delta/Vega Risk</h3>
+<!-- l. 5 --><p class='noindent'>
+</p>
+<h4 class='subsectionHead'><span class='titlemark'>2.1.1   </span> <a id='x1-50002.1.1'></a>Partitioning the Intra-bucket Correlation Matrix</h4>
+<!-- l. 7 --><p class='noindent'>Consider the formula for the delta/vega intra-bucket risk position for bucket \(b\): \begin {equation}  \begin {aligned} K_b^2 &amp;= \mathrm {max} \left ( 0, \: \sum _k \text {WS}_k^2 + \sum _{\substack {k,l \\ l \ne k}} \rho _{kl} \text {WS}_k \text {WS}_l \right ) \\ &amp;= \mathrm {max} \left ( 0, \: \sum _{k,l} \rho _{kl} \text {WS}_k \text {WS}_l \right ) \\ &amp;= \mathrm {max} \left ( 0, \: \textbf {w}^T \: C \: \textbf {w} \right ) \end {aligned}  \end {equation}<a id='x1-5001r1'></a>
+</p><!-- l. 16 --><p class='noindent'>where \(\textbf {w}\) is the column vector of risk-weighted sensitivities (\(\text {WS}\)), and \(C\) is the intra-bucket (\(\rho \))
+correlation matrix, with \(\rho _{ij} = 1\) if \(i = j\). We use the word ‘correlation’ loosely, for example in the
+inter-bucket chapter we will actually choose the diagonal values of the matrix to be zero! So
+these matrices may not be positive semi-definite.
+</p><!-- l. 21 --><p class='noindent'>In the implementation of what follows, it is actually easier to convert \(\textbf {w}\) into a row vector, i.e. \(K_b^2 = \textbf {w} \: C \: \textbf {w}^T\),
+where from now on we drop the \(\mathrm {max}\) function and assume that this is implicit.
+</p><!-- l. 25 --><p class='noindent'>Next we partition \(C\) and \(\textbf {w}\) by underlying, where \(\textbf {w}_u\) is the weighted sensitivities row vector for
+underlying \(u\), and \(C_s\) and \(C_d\) are the correlation sub-matrices for the case of the same underlying,
+and different underlyings, respectively. We are at liberty to do this due to the fact that
+the correlations are independent of the <span class='cmti-10x-x-109'>actual </span>underlyings; we need only concern
+ourselves with whether or not the correlation is related to the <span class='cmti-10x-x-109'>same </span>underlying or
+not.
+</p><!-- l. 38 --><p class='noindent'>\begin {equation}  C = \begin {bmatrix} C_s &amp; C_d &amp; \ldots &amp; C_d \\ C_d &amp; C_s &amp; \ldots &amp; C_d \\ \vdots &amp; \vdots &amp; \ddots &amp; C_d \\ C_d &amp; C_d &amp; \ldots &amp; C_s \end {bmatrix}  \end {equation}<a id='x1-5002r2'></a>
+</p><!-- l. 47 --><p class='noindent'>\begin {equation}  \textbf {w} = \begin {bmatrix} \textbf {w}_1 &amp; \textbf {w}_2 &amp; \ldots &amp; \textbf {w}_n \end {bmatrix}  \end {equation}<a id='x1-5003r3'></a>
+</p><!-- l. 49 --><p class='noindent'>Remembering that we have switched from column to row \(\textbf {w}_u\) vectors:
+</p><!-- l. 70 --><p class='noindent'>\begin {equation}  K_b^2 = \begin {bmatrix} \textbf {w}_1 &amp; \textbf {w}_2 &amp; \ldots &amp; \textbf {w}_n \end {bmatrix} \begin {bmatrix} C_s &amp; C_d &amp; \ldots &amp; C_d \\ C_d &amp; C_s &amp; \ldots &amp; C_d \\ \vdots &amp; \vdots &amp; \ddots &amp; C_d \\ C_d &amp; C_d &amp; \ldots &amp; C_s \end {bmatrix} \begin {bmatrix} \textbf {w}_1^T \\ \textbf {w}_2^T \\ \ldots \\ \textbf {w}_n^T \end {bmatrix}  \end {equation}<a id='x1-5004r4'></a>
+</p><!-- l. 72 --><p class='noindent'>Now
+</p><!-- l. 95 --><p class='noindent'>\begin {equation}  \begin {aligned} C &amp;= \begin {bmatrix} C_s &amp; C_d &amp; \ldots &amp; C_d \\ C_d &amp; C_s &amp; \ldots &amp; C_d \\ \vdots &amp; \vdots &amp; \ddots &amp; C_d \\ C_d &amp; C_d &amp; \ldots &amp; C_s \end {bmatrix} &amp;= \begin {bmatrix} C_s - C_d &amp; 0 &amp; \ldots &amp; 0 \\ 0 &amp; C_s - C_d &amp; \ldots &amp; 0 \\ \vdots &amp; \vdots &amp; \ddots &amp; 0 \\ 0 &amp; 0 &amp; \ldots &amp; C_s - C_d \end {bmatrix} + \begin {bmatrix} C_d &amp; C_d &amp; \ldots &amp; C_d \\ C_d &amp; C_d &amp; \ldots &amp; C_d \\ \vdots &amp; \vdots &amp; \ddots &amp; C_d \\ C_d &amp; C_d &amp; \ldots &amp; C_d \end {bmatrix} \end {aligned}  \end {equation}<a id='x1-5005r5'></a>
+</p><!-- l. 97 --><p class='noindent'>Finally:
+</p><!-- l. 130 --><p class='noindent'>\begin {equation}  \begin {aligned} K_b^2 &amp;= \textbf {w} \: C \: \textbf {w}^T \\[10pt] &amp;= \begin {bmatrix} \textbf {w}_1 &amp; \textbf {w}_2 &amp; \ldots &amp; \textbf {w}_n \end {bmatrix} \left ( \begin {bmatrix} C_s - C_d &amp; 0 &amp; \ldots &amp; 0 \\ 0 &amp; C_s - C_d &amp; \ldots &amp; 0 \\ \vdots &amp; \vdots &amp; \ddots &amp; 0 \\ 0 &amp; 0 &amp; \ldots &amp; C_s - C_d \end {bmatrix} + \begin {bmatrix} C_d &amp; C_d &amp; \ldots &amp; C_d \\ C_d &amp; C_d &amp; \ldots &amp; C_d \\ \vdots &amp; \vdots &amp; \ddots &amp; C_d \\ C_d &amp; C_d &amp; \ldots &amp; C_d \end {bmatrix} \right ) \begin {bmatrix} \textbf {w}_1^T \\ \textbf {w}_2^T \\ \vdots \\ \textbf {w}_n^T \end {bmatrix} \\[10pt] &amp;= \sum _u \Big \{ \textbf {w}_u \: \left ( C_s - C_d \right ) \: \textbf {w}_u^T \Big \} + \left ( \sum _u \textbf {w}_u \right ) \: C_d \: \left ( \sum _u \textbf {w}_u \right )^T \end {aligned}  \end {equation}<a id='x1-5006r6'></a>
+</p><!-- l. 132 --><p class='noindent'>Defining \(\textbf {w}_b = \sum _u \textbf {w}_u\) (the aggregated weighted sensitivities over all underlyings in the bucket):
+</p><!-- l. 137 --><p class='noindent'>\begin {equation}  K_b^2 = \sum _u \Big \{ \textbf {w}_u \: \left ( C_s - C_d \right ) \: \textbf {w}_u^T \Big \} + \textbf {w}_b \: C_d \: \textbf {w}_b^T  \end {equation}<a id='x1-5007r7'></a>
+                                                                                
+
+                                                                                
+</p><!-- l. 139 --><p class='noindent'>For what follows, it will be more convenient for us to convert the sum (left-hand term)
+into a matrix trace (\(\mathrm {Tr}\)). Let \(W\) be the matrix obtained by stacking all the \(\textbf {w}_u\) row vectors
+together:
+</p><!-- l. 152 --><p class='noindent'>\begin {equation}  \begin {aligned} W &amp;= \begin {bmatrix} \textbf {w}_1 \\ \textbf {w}_2 \\ \vdots \\ \textbf {w}_n \end {bmatrix} \\[10pt] K_b^2 &amp;= \mathrm {Tr} \left ( W \: (C_s - C_d) \: W^T \right ) + \textbf {w}_b \: C_d \: \textbf {w}_b^T \end {aligned}  \end {equation}<a id='x1-5008r8'></a>
+</p><!-- l. 154 --><p class='noindent'>Now for the pivotal step: so far, this risk position calculation has been for <span class='cmti-10x-x-109'>one </span>group, and a
+natural next step would be to iterate over all the groups and combine the results. However, if
+we stack the \(W\) weighted sensis matrix for each group into one larger matrix, then we can
+correlate all the groups in one calculation.
+</p><!-- l. 158 --><p class='noindent'>Define
+</p><!-- l. 167 --><p class='noindent'>\begin {equation}  W = \begin {bmatrix} \text {W}_{G_1} \\ \text {W}_{G_2} \\ \vdots \\ \text {W}_{G_n} \end {bmatrix}  \end {equation}<a id='x1-5009r9'></a>
+</p><!-- l. 169 --><p class='noindent'>where \(\text {W}_{G_k}\) is the \(W\) matrix for Group \(G_k\).
+</p><!-- l. 171 --><p class='noindent'>Now, \(W \: \left ( C_s - C_d \right ) \: W^T\) returns a matrix whose diagonal contains the values we require in order to calculate the
+risk position for each group. In the single group case above, we had to compute the trace of
+the matrix: now we must compute the trace of each sub-matrix on the diagonal. For
+example if we have 2 groups, one with 5 underlyings and the other with 10, the first
+5 elements of the diagonal should be added together to obtain the contribution
+pertaining to the first group, and similarly the latter 10 elements for the second
+group.
+</p><!-- l. 177 --><p class='noindent'>For the second term, \(W_b \: C_d \: W_b^T\), (where \(W_b\) is the matrix of stacked \(\textbf {w}_b\)) the diagonal contains one value per
+group. So if there are \(N\) groups, then the first diagonal element is the Group 1 value, the second
+is the Group 2 value, and so on up to Group \(N\).
+</p><!-- l. 181 --><p class='noindent'>Recall that this calculation was for a specific bucket \(b\), and in general should be repeated for
+each distinct bucket. However, in the case where \(\rho \) is not bucket-dependent, it is possible
+to compute the matrix formulae across all buckets in one go (like we did for the
+distinct groups). This is indeed the case for FX and GIRR, which is fortunate as
+both of these risk classes can have many buckets (currencies), offering a significant
+speed-up.
+</p><!-- l. 186 --><p class='noindent'>
+</p>
+<h4 class='subsectionHead'><span class='titlemark'>2.1.2   </span> <a id='x1-60002.1.2'></a>Further Partitioning of the Intra-bucket Correlation Matrix</h4>
+<!-- l. 188 --><p class='noindent'>There are cases where the correlation is across multiple axes, for example Commodity delta
+(underlying and <span class='cmti-10x-x-109'>location</span>). When this additional axis is ‘fixed’, for example CSR (the ‘BOND’
+and ‘CDS’ basis), then it is easier to denormalise these and incorporate them into the tenor
+axis (this will be discussed in the implementation sections). However, for axes which are less
+rigid, such as the Commodity location, these should be on a par with the underlying axis and
+treated in the same way. This means further decomposition of the correlation matrix
+                                                                                
+
+                                                                                
+and weighted sensitivity vectors. Choosing the Commodity delta risk type as our
+archetypal example, we need to decompose along the underlying axis, and then
+along the location axis. For example, \(C_s\) and \(C_d\) were our correlation sub-matrices for the
+same and different underlying, respectively; these must now be further decomposed
+into \(C_{ss}\), \(C_{sd}\), \(C_{ds}\) and \(C_{dd}\), where the additional \(s,d\) labels relate to same and different locations,
+respectively. For the avoidance of doubt, \(C_{ds}\) is the correlation sub-matrix for different
+underlyings with the same location, with \(C_{sd}\) the same underlying, but different locations,
+etc.
+</p><!-- l. 200 --><p class='noindent'>Recall
+</p><!-- l. 207 --><p class='noindent'>\begin {equation}  \begin {aligned} K_b^2 &amp;= \textbf {w} \: C \: \textbf {w}^T \\[10pt] &amp;= \sum _u \Big \{ \textbf {w}_u \: \left ( C_s - C_d \right ) \: \textbf {w}_u^T \Big \} + \left ( \sum _u \textbf {w}_u \right ) \: C_d \: \left ( \sum _u \textbf {w}_u \right )^T \end {aligned}  \end {equation}<a id='x1-6001r10'></a>
+</p><!-- l. 209 --><p class='noindent'>Notice that the linearised formula contains terms of the form as \(\textbf {w} \: C \: \textbf {w}^T\):
+</p><!-- l. 213 --><p class='noindent'>\begin {equation}  \textbf {w}_u \: \left ( C_s - C_d \right ) \: \textbf {w}_u^T  \end {equation}<a id='x1-6002r11'></a>
+</p><!-- l. 215 --><p class='noindent'>and
+</p><!-- l. 219 --><p class='noindent'>\begin {equation}  \left ( \sum _u \textbf {w}_u \right ) \: C_d \: \left ( \sum _u \textbf {w}_u \right )^T  \end {equation}<a id='x1-6003r12'></a>
+</p><!-- l. 221 --><p class='noindent'>So in order to decompose the correlation further, we can just apply the same linear formula to
+both of these terms. Note that the additional \(v\) index refers to the location, so \(\textbf {w}_{u,v}\) is the weighted
+sensitivity vector relating to underlying \(u\) at location \(v\).
+</p><!-- l. 232 --><p class='noindent'>\begin {equation}  \begin {aligned} \textbf {w}_u \: (C_s - C_d) \: \textbf {w}_u^T &amp;= \sum _v \Big \{ \textbf {w}_{u,v} \: \left ( \left ( C_{ss} - C_{ds} \right ) - \left ( C_{sd} - C_{dd} \right ) \right ) \: \textbf {w}_{u,v}^T \Big \} \\ &amp; \qquad + \left ( \sum _v \textbf {w}_{u,v} \right ) \: \left ( C_{sd} - C_{dd} \right ) \: \left ( \sum _v \textbf {w}_{u,v} \right )^T \\[10pt] &amp;= \sum _v \Big \{ \textbf {w}_{u,v} \: \left ( C_{ss} - C_{ds} - C_{sd} + C_{dd} \right ) \: \textbf {w}_{u,v}^T \Big \} \\ &amp; \qquad + \left ( \sum _v \textbf {w}_{u,v} \right ) \: \left ( C_{sd} - C_{dd} \right ) \: \left ( \sum _v \textbf {w}_{u,v} \right )^T \end {aligned}  \end {equation}<a id='x1-6004r13'></a>
+</p><!-- l. 234 --><p class='noindent'>Alternatively, apply the recursive formula to \(\textbf {w} \: C_s \: \textbf {w}^T\) and \(\textbf {w} \: C_d \: \textbf {w}^T\) individually, then subtract.
+</p><!-- l. 237 --><p class='noindent'>Similarly,
+</p><!-- l. 244 --><p class='noindent'>\begin {equation}  \begin {aligned} \left ( \sum _u \textbf {w}_u \right ) \: C_d \: \left ( \sum _u \textbf {w}_u \right )^T &amp;= \sum _v \left \{ \left ( \sum _u \textbf {w}_{u,v} \right ) \: \left ( C_{ds} - C_{dd} \right ) \: \left ( \sum _u \textbf {w}_{u,v} \right )^T \right \} \\ &amp; \qquad + \left ( \sum _v \sum _u \textbf {w}_{u,v} \right ) \: C_{dd} \: \left ( \sum _v \sum _u \textbf {w}_{u,v} \right )^T \end {aligned}  \end {equation}<a id='x1-6005r14'></a>
+</p><!-- l. 246 --><p class='noindent'>Finally
+</p><!-- l. 255 --><p class='noindent'>\begin {equation}  \begin {aligned} K_b^2 &amp;= \textbf {w} \: C \: \textbf {w}^T \\[10pt] &amp;= \sum _u \Big \{ \textbf {w}_u \: \left ( C_s - C_d \right ) \: \textbf {w}_u^T \Big \} + \left ( \sum _u \textbf {w}_u \right ) \: C_d \: \left ( \sum _u \textbf {w}_u \right )^T \\[10pt] &amp;= \sum _u \left \{ \sum _v \Big \{\textbf {w}_{u,v} \: \left ( C_{ss} - C_{ds} - C_{sd} + C_{dd} \right ) \: \textbf {w}_{u,v}^T \Big \} + \left ( \sum _v \textbf {w}_{u,v} \right ) \: \left ( C_{sd} - C_{dd} \right ) \: \left ( \sum _v \textbf {w}_{u,v} \right )^T \right \} \\[10pt] &amp; \qquad + \sum _v \left \{ \left ( \sum _u \textbf {w}_{u,v} \right ) \: \left ( C_{ds} - C_{dd} \right ) \: \left ( \sum _u \textbf {w}_{u,v} \right )^T \right \} + \left ( \sum _{u,v} \textbf {w}_{u,v} \right ) \: C_{dd} \: \left ( \sum _{u,v} \textbf {w}_{u,v} \right )^T \end {aligned}  \end {equation}<a id='x1-6006r15'></a>
+</p><!-- l. 264 --><p class='noindent'>\begin {equation}  \begin {aligned} K_b^2 &amp;= \qquad \qquad \sum _{u,v} \Bigg \{ \textbf {w}_{u,v} \: \left ( C_{ss} - C_{ds} - C_{sd} + C_{dd} \right ) \: \textbf {w}_{u,v}^T \Bigg \} \\[10pt] &amp; \qquad + \qquad \sum _u \left \{ \left ( \sum _v \textbf {w}_{u,v} \right ) \: \left ( C_{sd} - C_{dd} \right ) \: \left ( \sum _v \textbf {w}_{u,v} \right )^T \right \} \\[10pt] &amp; \qquad + \qquad \sum _v \left \{ \left ( \sum _u \textbf {w}_{u,v} \right ) \: \left ( C_{ds} - C_{dd} \right ) \: \left ( \sum _u \textbf {w}_{u,v} \right )^T \right \} \\[10pt] &amp; \qquad + \qquad \qquad \left ( \sum _{u,v} \textbf {w}_{u,v} \right ) \: C_{dd} \: \left ( \sum _{u,v} \textbf {w}_{u,v} \right )^T \end {aligned}  \end {equation}<a id='x1-6007r16'></a>
+</p><!-- l. 266 --><p class='noindent'>The four components of this formula can be readily converted into the same matrix form as
+before. We can summarise the one and two axis decomposition as follows:
+</p>
+<div class='table'>
+                                                                                
+
+                                                                                
+<!-- l. 269 --><p class='noindent'></p><figure class='float'>
                                                                                 
 
                                                                                 
 
+ <table class='tabular' id='TBL-2'><colgroup id='TBL-2-1g'><col id='TBL-2-1' /><col id='TBL-2-2' /></colgroup><tr id='TBL-2-1-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-1-1' style='white-space:nowrap; text-align:left;'> <span class='cmbx-10x-x-109'>Aggregation Level </span></td><td class='td11' id='TBL-2-1-2' style='white-space:nowrap; text-align:left;'> <span class='cmbx-10x-x-109'>Matrix </span></td>
+
+</tr><tr id='TBL-2-2-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-2-1' style='white-space:nowrap; text-align:left;'> Underlying                </td><td class='td11' id='TBL-2-2-2' style='white-space:nowrap; text-align:left;'> \(C_s - C_d\)        </td>
+</tr><tr id='TBL-2-3-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-3-1' style='white-space:nowrap; text-align:left;'> Bucket                     </td><td class='td11' id='TBL-2-3-2' style='white-space:nowrap; text-align:left;'> \(C_d\)        </td>
+</tr></table><a id='x1-6008r1'></a>
+<figcaption class='caption'><span class='id'>Table 2.1: </span><span class='content'>One axis (‘Underlying’)
+</span></figcaption><!-- tex4ht:label?: x1-6008r1  -->
+                                                                                
+
+                                                                                
+</figure>
+</div>
+<div class='table'>
+                                                                                
+
+                                                                                
+<!-- l. 282 --><p class='noindent'></p><figure class='float'>
                                                                                 
 
                                                                                 
 
+ <table class='tabular' id='TBL-3'><colgroup id='TBL-3-1g'><col id='TBL-3-1' /><col id='TBL-3-2' /></colgroup><tr id='TBL-3-1-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-1-1' style='white-space:nowrap; text-align:left;'> <span class='cmbx-10x-x-109'>Aggregation Level </span></td><td class='td11' id='TBL-3-1-2' style='white-space:nowrap; text-align:left;'> <span class='cmbx-10x-x-109'>Matrix </span></td>
+
+</tr><tr id='TBL-3-2-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-2-1' style='white-space:nowrap; text-align:left;'> Underlying, Other      </td><td class='td11' id='TBL-3-2-2' style='white-space:nowrap; text-align:left;'> \(C_{ss} - C_{ds} - C_{sd} + C_{dd}\)        </td>
+</tr><tr id='TBL-3-3-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-3-1' style='white-space:nowrap; text-align:left;'> Underlying                </td><td class='td11' id='TBL-3-3-2' style='white-space:nowrap; text-align:left;'> \(C_{sd} - C_{dd}\)        </td>
+</tr><tr id='TBL-3-4-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-4-1' style='white-space:nowrap; text-align:left;'> Other                      </td><td class='td11' id='TBL-3-4-2' style='white-space:nowrap; text-align:left;'> \(C_{ds} - C_{dd}\)        </td>
+</tr><tr id='TBL-3-5-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-5-1' style='white-space:nowrap; text-align:left;'> Bucket                     </td><td class='td11' id='TBL-3-5-2' style='white-space:nowrap; text-align:left;'> \(C_{dd}\)        </td>
+</tr></table><a id='x1-6009r2'></a>
+<figcaption class='caption'><span class='id'>Table 2.2: </span><span class='content'>Two axes (‘Underlying’ and ‘Other’)
+</span></figcaption><!-- tex4ht:label?: x1-6009r2  -->
                                                                                 
 
                                                                                 
-
+</figure>
+</div>
+<!-- l. 297 --><p class='noindent'>where Bucket-level aggregation just means we sum all the decomposed weighted sensitivity
+vectors belonging to the same bucket. To continue with the Commodity delta example, the
+‘Other’ level would be the location.
+</p>
+<h3 class='sectionHead'><span class='titlemark'>2.2   </span> <a id='x1-70002.2'></a>Curvature Risk</h3>
+<!-- l. 302 --><p class='noindent'>The curvature \(\rho \)-correlation is relatively trivial: no tenors are involved as the curve is always
+flattened, and we need to aggregate at the underlying level only. The correlation matrix
+reduces to the simple form:
+</p><!-- l. 312 --><p class='noindent'>\begin {equation}  C = \begin {bmatrix} 1 &amp; \rho &amp; \ldots &amp; \rho \\ \rho &amp; 1 &amp; \ldots &amp; \rho \\ \vdots &amp; \vdots &amp; \ddots &amp; \rho \\ \rho &amp; \rho &amp; \ldots &amp; 1 \end {bmatrix}  \end {equation}<a id='x1-7001r17'></a>
+</p><!-- l. 314 --><p class='noindent'>where \(\rho \) is the correlation between two different underlyings. Although the correlation matrix
+itself is trivial, the computation has an additional subtlety which we need to take care with.
+From the FRTB specification:
+</p><!-- l. 319 --><p class='noindent'>\begin {equation}  K_b^2 = \sum _k \mathrm {max}(\mathrm {CVR}_k, 0)^2 + \sum _{\substack {k,l \\ l \ne k}} \rho _{kl} \: \mathrm {CVR}_k \: \mathrm {CVR}_l \: \psi (\mathrm {CVR}_k, \mathrm {CVR}_l)  \end {equation}<a id='x1-7002r18'></a>
+</p><!-- l. 321 --><p class='noindent'>where \(\textbf {CVR}\) is the vector of underlying net curvature risk values, and \(\psi \) is a function defined
+below. Note that this vector is \(\textbf {CVR}^+\) and \(\textbf {CVR}^-\) for the ‘up’ and the ‘down’ shocks, respectively.
+Despite these shocks differing in nature from the delta/vega sensitivities, we will
+simply refer to this vector as \(\textbf {w}\) also, to keep our notation consistent (but mostly for
+brevity).
+</p><!-- l. 326 --><p class='noindent'>There are two important differences between this formula and that of delta/vega:
+</p><!-- l. 329 --><p class='noindent'>
+     </p><dl class='enumerate'><dt class='enumerate'>
+   1. </dt><dd class='enumerate'>the \(\mathrm {max}\) function in the first term, which floors each contribution at zero
+     </dd><dt class='enumerate'>
+   2. </dt><dd class='enumerate'>the \(\psi \) function in the second term, defined as follows: \begin {equation}  \psi (\mathrm {CVR}_k, \mathrm {CVR}_l) = \begin {cases} 0 &amp; \mathrm {CVR}_k &lt; 0 \: \text {and} \: \mathrm {CVR}_l &lt; 0 \\ 1 &amp; \text {otherwise} \end {cases}  \end {equation}<a id='x1-7005r19'></a></dd></dl>
+<!-- l. 339 --><p class='noindent'>Rewriting the curvature risk position with our new notation, and introducing
+</p><!-- l. 346 --><p class='noindent'>\begin {equation}  \begin {aligned} w_k^{(+)} &amp;= \mathrm {max}(w_k, 0) \\ w_k^{(-)} &amp;= \mathrm {min}(w_k, 0) \end {aligned}  \end {equation}<a id='x1-7006r20'></a>
+</p><!-- l. 359 --><p class='noindent'>\begin {equation}  \begin {aligned} K_b^2 &amp;= \sum _k \mathrm {max}(\mathrm {CVR}_k, 0)^2 + \sum _{\substack {k,l \\ l \ne k}} \rho _{kl} \: \mathrm {CVR}_k \: \mathrm {CVR}_l \: \psi (\mathrm {CVR}_k, \mathrm {CVR}_l) \\ &amp;= \sum _k \mathrm {max}(w_k, 0)^2 + \sum _{\substack {k,l \\ l \ne k}} \rho _{kl} \: w_k \: w_l \: \psi (w_k, w_l) \\ &amp;= \sum _k w_k^{(+)2} + \sum _{\substack {k,l \\ l \ne k}} \rho _{kl} \: w_k \: w_l \: \psi (w_k, w_l) \\ &amp;= \sum _k w_k^{(+)2} + \sum _{k,l} \rho _{kl} \: w_k \: w_l \: \psi (w_k, w_l) - \sum _k w_k^2 \: \psi (w_k, w_k) \\ &amp;= \sum _k w_k^{(+)2} + \sum _{k,l} \rho _{kl} \: w_k \: w_l \: \psi (w_k, w_l) - \sum _k w_k^{(+)2} \\ &amp;= \sum _{k,l} \rho _{kl} \: w_k \: w_l \: \psi (w_k, w_l) \\ &amp;= \sum _{k,l} \rho _{kl} \: w_k \: w_l - \sum _{k,l} \rho _{kl} \: w^{(-)}_k \: w^{(-)}_l \\ &amp;= \textbf {w} \: C \: \textbf {w}^T \: - \: \textbf {w}^{(-)} \: C \: \textbf {w}^{(-)T} \end {aligned}  \end {equation}<a id='x1-7007r21'></a>
+</p><!-- l. 361 --><p class='noindent'>We are now ready to substitute the curvature \(\rho \)-correlation matrix, \(C\), but not before
+decomposing it into two matrices, as we did for delta/vega:
+</p><!-- l. 401 --><p class='noindent'>\begin {equation}  \begin {aligned} C = \begin {bmatrix} 1 &amp; \rho &amp; \ldots &amp; \rho \\ \rho &amp; 1 &amp; \ldots &amp; \rho \\ \vdots &amp; \vdots &amp; \ddots &amp; \rho \\ \rho &amp; \rho &amp; \ldots &amp; 1 \end {bmatrix} &amp;= \begin {bmatrix} 1-\rho &amp; 0 &amp; \ldots &amp; 0 \\ 0 &amp; 1-\rho &amp; \ldots &amp; 0 \\ 0 &amp; \vdots &amp; \ddots &amp; 0 \\ 0 &amp; 0 &amp; \ldots &amp; 1-\rho \end {bmatrix} + \begin {bmatrix} \rho &amp; \rho &amp; \ldots &amp; \rho \\ \rho &amp; \rho &amp; \ldots &amp; \rho \\ \vdots &amp; \vdots &amp; \ddots &amp; \rho \\ \rho &amp; \rho &amp; \ldots &amp; \rho \end {bmatrix} \\[10pt] &amp;= \left ( 1-\rho \right ) \begin {bmatrix} 1 &amp; 0 &amp; \ldots &amp; 0 \\ 0 &amp; 1 &amp; \ldots &amp; 0 \\ 0 &amp; \vdots &amp; \ddots &amp; 0 \\ 0 &amp; 0 &amp; \ldots &amp; 1 \end {bmatrix} + \rho \begin {bmatrix} 1 &amp; 1 &amp; \ldots &amp; 1 \\ 1 &amp; 1 &amp; \ldots &amp; 1 \\ \vdots &amp; \vdots &amp; \ddots &amp; 1 \\ 1 &amp; 1 &amp; \ldots &amp; 1 \end {bmatrix} \end {aligned}  \end {equation}<a id='x1-7008r22'></a>
                                                                                 
 
                                                                                 
-
+</p><!-- l. 403 --><p class='noindent'>Let us calculate \(\textbf {w} \: C \: \textbf {w}^T\) first:
+</p><!-- l. 451 --><p class='noindent'>\begin {equation}  \begin {aligned} \textbf {w} \: C \: \textbf {w}^T &amp;= \textbf {w} \begin {bmatrix} 1 &amp; \rho &amp; \ldots &amp; \rho \\ \rho &amp; 1 &amp; \ldots &amp; \rho \\ \vdots &amp; \vdots &amp; \ddots &amp; \rho \\ \rho &amp; \rho &amp; \ldots &amp; 1 \end {bmatrix} \textbf {w}^T \\ &amp;= \textbf {w} \left ( \left ( 1 - \rho \right ) \begin {bmatrix} 1 &amp; 0 &amp; \ldots &amp; 0 \\ 0 &amp; 1 &amp; \ldots &amp; 0 \\ 0 &amp; \vdots &amp; \ddots &amp; 0 \\ 0 &amp; 0 &amp; \ldots &amp; 1 \end {bmatrix} + \rho \begin {bmatrix} 1 &amp; 1 &amp; \ldots &amp; 1 \\ 1 &amp; 1 &amp; \ldots &amp; 1 \\ \vdots &amp; \vdots &amp; \ddots &amp; 1 \\ 1 &amp; 1 &amp; \ldots &amp; 1 \end {bmatrix} \right ) \textbf {w}^T \\ &amp;= \left ( 1-\rho \right ) \textbf {w} \begin {bmatrix} 1 &amp; 0 &amp; \ldots &amp; 0 \\ 0 &amp; 1 &amp; \ldots &amp; 0 \\ 0 &amp; \vdots &amp; \ddots &amp; 0 \\ 0 &amp; 0 &amp; \ldots &amp; 1 \end {bmatrix} \textbf {w}^T + \rho \textbf {w} \begin {bmatrix} 1 &amp; 1 &amp; \ldots &amp; 1 \\ 1 &amp; 1 &amp; \ldots &amp; 1 \\ 1 &amp; \vdots &amp; \ddots &amp; 1 \\ 1 &amp; 1 &amp; \ldots &amp; 1 \end {bmatrix} \textbf {w}^T \\ &amp;= \left ( 1-\rho \right ) \sum _k w_k^2 + \rho \left ( \sum _k w_k \right )^2 \end {aligned}  \end {equation}<a id='x1-7009r23'></a>
+</p><!-- l. 453 --><p class='noindent'>Similarly
+</p><!-- l. 457 --><p class='noindent'>\begin {equation}  \textbf {w}^{(-)} \: C \: \textbf {w}^{(-)T} = (1-\rho ) \sum _k w_k^{(-)2} + \rho \left ( \sum _k w_k^{(-)} \right )^2  \end {equation}<a id='x1-7010r24'></a>
+</p><!-- l. 459 --><p class='noindent'>Finally
+</p><!-- l. 469 --><p class='noindent'>\begin {equation}  \begin {aligned} K_b^2 &amp;= \textbf {w} \: C \: \textbf {w}^T \: - \: \textbf {w}^{(-)} \: C \: \textbf {w}^{(-)T} \\ &amp;= (1-\rho ) \sum _k w_k^2 + \rho \left ( \sum _k w_k \right )^2 - \left ( (1-\rho ) \sum _k w_k^{(-)2} + \rho \left ( \sum _k w_k^{(-)} \right )^2 \right ) \\ &amp;= (1-\rho ) \left ( \sum _k w_k^2 - \sum _k w_k^{(-)2} \right ) + \rho \left \{ \left ( \sum _k w_k \right )^2 - \left ( \sum _k w_k^{(-)} \right )^2 \right \} \\ &amp;= (1-\rho ) \left ( \sum _k w_k^{(+)2} \right ) + \rho \left \{ \left ( \sum _k w_k \right )^2 - \left ( \sum _k w_k^{(-)} \right )^2 \right \} \\ &amp;= \sum _k w_k^{(+)2} + \rho \left \{ \left ( \sum _k w_k \right )^2 - \left ( \sum _k w_k^{(-)} \right )^2 - \sum _k w_k^{(+)2} \right \} \\ \end {aligned}  \end {equation}<a id='x1-7011r25'></a>
+</p><!-- l. 471 --><p class='noindent'>Inspecting this formula tells us which quantities we need to compute in order to calculate the
+curvature risk position:
+</p>
+     <ul class='itemize1'>
+     <li class='itemize'>the sum of all the sensitivities - \(\sum _k w_k\)
+     </li>
+     <li class='itemize'>the sum of the negative sensitivities - \(\sum _k w_k^{(-)}\)
+     </li>
+     <li class='itemize'>the sum of the squares of the positive sensitivities - \(\sum _k w_k^{(+)2}\)</li></ul>
+<!-- l. 479 --><p class='noindent'>Since the curvature risk position calculation is reduced to these three simple summations,
+there is no trouble in computing multiple risk positions across desks, books, etc in one single
+calculation. All that is required is that the sums are aggregated at the required levels
+before being substituted into the formula above. The resulting curvature risk position
+is \(K_b = \mathrm {max}(K_b^+, K_b^-)\), where \(K_b^+\) and \(K_b^-\) are the \(K_b\) values calculated for the ‘up’ and the ‘down’ scenarios,
+respectively.
+</p><!-- l. 485 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>2.3   </span> <a id='x1-80002.3'></a>Summary</h3>
+<!-- l. 487 --><p class='noindent'>In this chapter we have demonstrated is that potentially enormous correlation matrices are
+avoidable, and can be replaced by small, fixed-size matrices. We have also shown that by
+suitable partitioning of the input data, we can compute the risk positions across multiple
+dimensions in one single calculation, removing the need to iterate over multiple
                                                                                 
 
                                                                                 
-
+datasets.
+</p><!-- l. 492 --><p class='noindent'>For each risk class/type we need to decompose the delta/vega risk factors into a set of axes:
+one of these will be the fundamental, fixed axis which will determine the size of the correlation
+matrix (for example, the GIRR delta tenors). For most cases we will only have one
+additional variable axis (namely, the ‘underlying’), for which we need to determine \(C_s\) and \(C_d\).
+For other risk types such as Commodity delta, we have an additional axis which
+requires a further decomposition of the correlation matrices. In other such cases we
+can convert the problem into the simpler case by de-normalising, which is faster to
+compute.
+</p><!-- l. 499 --><p class='noindent'>In each instance we have two tasks: construct the set of decomposed correlation
+matrices and then aggregate the weighted sensitivities at the required levels. This
+hints at a code implementation with two template methods, which handle these
+two core requirements. The remainder of the algorithm can then leverage generic
+code, with special handling for the ‘other’ bucket (where appropriate) ie. a special
+bucket for a given risk class/type where the correlation is replaced by an alternative
+aggregation.
+</p><!-- l. 505 --><p class='noindent'>Curvature risk, which on the face of it looks more complicated than delta/vega, is actually
+simpler and can be calculated without using matrices in linear time.
                                                                                 
 
                                                                                 
-
                                                                                 
 
                                                                                 
-
                                                                                 
 
                                                                                 
-
                                                                                 
 
                                                                                 
-
+</p>
+<h2 class='chapterHead'><span class='titlemark'>Chapter 3</span><br /><a id='x1-90003'></a>Inter-Bucket Aggregation</h2>
+<h3 class='sectionHead'><span class='titlemark'>3.1   </span> <a id='x1-100003.1'></a>Overview</h3>
+<!-- l. 5 --><p class='noindent'>Unlike the intra-bucket case, where the calculation was always dependent on the number of
+underlyings in the portfolio, the inter-bucket correlation is typically based on a small, fixed
+number of <span class='cmti-10x-x-109'>buckets</span>. As before, curvature has an additional subtlety, which is once
+again in the form of a \(\psi \) function which suppresses correlations between negative
+quantities.
+</p><!-- l. 10 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>3.2   </span> <a id='x1-110003.2'></a>Delta/Vega</h3>
+<!-- l. 12 --><p class='noindent'>The delta/vega capital charge \(K\) for a given risk class is determined using the following:
+</p><!-- l. 16 --><p class='noindent'>\begin {equation}  K^2 = \sum _b K_b^2 + \sum _{\substack {b,c \\ c \ne b}} \gamma _{bc} \: S_b \: S_c  \end {equation}<a id='x1-11001r1'></a>
+</p><!-- l. 18 --><p class='noindent'>where
+</p>
+     <ul class='itemize1'>
+     <li class='itemize'>\(K_b\) is the risk position of bucket \(b\)
+     </li>
+     <li class='itemize'>\(S_b = \sum _k w_k\) where \(\textbf {w}\) is the weighted sensitivity vector associated with bucket \(b\)
+     </li>
+     <li class='itemize'>\(\gamma _{bc}\) is the (inter-bucket) correlation between buckets \(b\) and \(c\)</li></ul>
+<!-- l. 26 --><p class='noindent'>This formula can return negative values, in which case an alternative definition for \(S_b\) must be
+used instead:
+</p><!-- l. 30 --><p class='noindent'>\begin {equation}  S_b = \mathrm {max} \left ( \mathrm {min} \left ( \sum _k w_k, K_b \right ), -K_b \right )  \end {equation}<a id='x1-11002r2'></a>
+</p><!-- l. 32 --><p class='noindent'>In contrast to the intra-bucket case, the two terms in the \(K^2\) formula relate to two different
+quantities, \(K_b\) and \(S_b\), as opposed to just \(w_k\) in the former. For the intra-bucket case, it suited us to
                                                                                 
 
                                                                                 
+define \(\rho _{kl} = 1\) for \(k=l\) (the diagonal terms), allowing the first term to be absorbed into the resulting
+matrix formula. For the inter-bucket correlation, it will benefit us to define \(\gamma _{bc} = 0\) if \(b = c\), which means
+we can drop the restriction \(c \ne b\) in the double summation (since the \(b = c\) contribution is
+zero):
+</p><!-- l. 44 --><p class='noindent'>\begin {equation}  \begin {aligned} K^2 &amp;= \sum _b K_b^2 + \sum _{\substack {b,c \\ c \ne b}} \gamma _{bc} \: S_b \: S_c \\ &amp;= \sum _b K_b^2 + \sum _{b,c} \gamma _{bc} \: S_b \: S_c \\ &amp;= \sum _b K_b^2 + \textbf {S} \: C \: \textbf {S}^T \end {aligned}  \end {equation}<a id='x1-11003r3'></a>
+</p><!-- l. 46 --><p class='noindent'>where \(\textbf {S}\) is the vector of \(S_b\) values, and \(C\) is the inter-bucket correlation matrix (with zeros on the
+diagonal). All that remains is to take the square root in order to obtain the delta/vega capital
+risk charge, \(K\).
+</p><!-- l. 49 --><p class='noindent'>For a daily risk charge calculation, the above provides a single value per delta/vega risk class
+for a given scenario (low/medium/high). Once values have been computed for all
+three scenarios, the results can be fed into the overall portfolio calculation. If, as
+discussed in the intra-bucket case, we need to determine \(K\) at lower levels, for example
+per desk or per book, we can once again compute <span class='cmti-10x-x-109'>all </span>these values in one single
+calculation.
+</p><!-- l. 54 --><p class='noindent'>Consider the matrix \(S\) which is constructed by stacking the \(\textbf {S}\) row-vectors, one per group (where
+the ‘group’ once again refers to the aggregation level we require, eg group \(G_1\) may refer to Book \(1\),
+\(G_2\) to Book \(2\), etc).
+</p><!-- l. 64 --><p class='noindent'>\begin {equation}  S = \begin {bmatrix} \textbf {S}_{G_1} \\ \textbf {S}_{G_2} \\ \vdots \\ \textbf {S}_{G_n} \end {bmatrix}  \end {equation}<a id='x1-11004r4'></a>
+</p><!-- l. 66 --><p class='noindent'>Now, instead of computing \(\textbf {S}_{G_i} \: C \: \textbf {S}_{G_i}^T\) for each group \(G_i\), we compute \(S \: C \: S^T\) and read the values on the diagonal
+to determine contribution to each capital charge. For example, for group \(G_i\) with \(i=1,2, .., N_G\) where \(N_G\) is
+the number of groups, we read off the \(i^{th}\) value on the diagonal. The \(\sum _b K_b^2\) contribution is
+trivially aggregated at the same level, where we can add the results together to find
+\(K_{G_i}^2\).
+</p><!-- l. 71 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>3.3   </span> <a id='x1-120003.3'></a>Curvature</h3>
+<!-- l. 73 --><p class='noindent'>Define \(K_b = \mathrm {max}(K_b^+,K_b^-)\), where \(K_b^+\) and \(K_b^-\) are the bucket \(b\) risk positions for the ‘up’ and ‘down’ scenarios. Namely,
+the intra-bucket risk correlations derived using the shock vectors \(\textbf {CVR}^+\) and \(\textbf {CVR}^-\) associated with bucket
+\(b\), respectively.
+</p><!-- l. 77 --><p class='noindent'>Define \(S_b = \sum _k w_k\), where
+</p><!-- l. 84 --><p class='noindent'>\begin {equation}  \textbf {w} = \begin {cases} \textbf {CVR}^+ &amp; K_b = K_b^+ \\ \textbf {CVR}^- &amp; K_b = K_b^- \\ \end {cases}  \end {equation}<a id='x1-12001r5'></a>
+</p><!-- l. 86 --><p class='noindent'>In the terminology of the Basel documentation, we say that either the ‘up’ or the ‘down’
+scenario has been <span class='cmti-10x-x-109'>selected </span>for bucket \(b\). From the FRTB specification, where \(\gamma _{bc}\) is the
+(inter-bucket) correlation between buckets \(b\) and \(c\):
+                                                                                
+
+                                                                                
+</p><!-- l. 92 --><p class='noindent'>\begin {equation}  K^2 = \mathrm {max} \left ( \sum _b K_b^2 + \sum _{\substack {b,c \\ c \ne b}} \gamma _{bc} \: S_b \: S_c \: \psi (S_b, S_c), \: 0 \right )  \end {equation}<a id='x1-12002r6'></a>
+</p><!-- l. 94 --><p class='noindent'>where
+</p><!-- l. 101 --><p class='noindent'>\begin {equation}  \psi (S_b, S_c) = \begin {cases} 0 &amp; S_b &lt; 0 \: \text {and} \: S_c &lt; 0 \\ 1 &amp; \text {otherwise} \end {cases}  \end {equation}<a id='x1-12003r7'></a>
+</p><!-- l. 103 --><p class='noindent'>As before, we can drop the \(\psi \) function from the sum as long as we compensate for this by
+subtracting the \(S^{(-)}\) contributions. Recalling that the diagonal \(\gamma \) are zero:
+</p><!-- l. 113 --><p class='noindent'>\begin {equation}  \begin {aligned} K^2 &amp;= \sum _b K_b^2 + \sum _{\substack {b,c \\ c \ne b}} \gamma _{bc} \: S_b \: S_c \: \psi (S_b, S_c) \\ &amp;= \sum _b K_b^2 + \sum _{b,c} \gamma _{bc} \: S_b \: S_c \: \psi (S_b, S_c) \\ &amp;= \sum _b K_b^2 + \sum _{b,c} \gamma _{bc} \: S_b \: S_c - \sum _{b,c} \gamma _{bc} \: S_b^{(-)} \: S_c^{(-)} \\ &amp;= \sum _b K_b^2 + \textbf {S} \: C \: \textbf {S}^T - \textbf {S}^{(-)} \: C \: \textbf {S}^{(-)T} \end {aligned}  \end {equation}<a id='x1-12004r8'></a>
+</p><!-- l. 115 --><p class='noindent'>where \(S_k^{(-)} = \mathrm {min}(S_k, 0)\) and \(C\) is the inter-bucket correlation matrix (with zeros on the diagonal). Notice that
+once again we have dropped the \(\mathrm {max}\) function which floors the result at zero, with the
+understanding that this step is implicit when it comes to taking the square root to determine
+the curvature capital charge, \(K\).
+</p><!-- l. 120 --><p class='noindent'>We are left with four simple steps:
+</p><!-- l. 123 --><p class='noindent'>
+     </p><dl class='enumerate'><dt class='enumerate'>
+   1. </dt><dd class='enumerate'>Compute \(\sum _b K_b^2\)
+     </dd><dt class='enumerate'>
+   2. </dt><dd class='enumerate'>Add \(\textbf {S} \: C \: \textbf {S}^T\)
+     </dd><dt class='enumerate'>
+   3. </dt><dd class='enumerate'>Subtract \(\textbf {S}^{(-)} \: C \: \textbf {S}^{(-)T}\), where the vector \(\textbf {S}^{(-)}\) contains all the negative \(S_b\) (with any other entries set
+     to zero).
+     </dd><dt class='enumerate'>
+   4. </dt><dd class='enumerate'>Floor the result at zero before taking the square root to obtain the curvature
+     capital charge, \(K\).</dd></dl>
+<!-- l. 130 --><p class='noindent'>To calculate the curvature risk charge at lower levels, for example book or desk, just follow the
+same procedure as we did for delta/vega above.
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+</p>
+<h2 class='chapterHead'><span class='titlemark'>Chapter 4</span><br /><a id='x1-130004'></a>FX Risk</h2>
+<h3 class='sectionHead'><span class='titlemark'>4.1   </span> <a id='x1-140004.1'></a>FX Delta</h3>
+<!-- l. 5 --><p class='noindent'>Given that the FX risk factor and the bucket coincide, there is no intra-bucket correlation as
+such, given that there is only one risk factor per bucket. The risk position \(K_b\) is calculated using
+the simple formula:
+</p><!-- l. 13 --><p class='noindent'>\begin {equation}  \begin {aligned} K_b^2 &amp;= \sum _k w_k^2 = w^2 \\ K_b &amp;= |w| \end {aligned}  \end {equation}<a id='x1-14001r1'></a>
+</p><!-- l. 15 --><p class='noindent'>where \(w\) is the net risk-weighted sensitivity associated with the single risk factor. Obviously
+there is no need for the matrix formulation in this case whatsoever.
+</p><!-- l. 18 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>4.2   </span> <a id='x1-150004.2'></a>FX Vega</h3>
+<!-- l. 20 --><p class='noindent'>The FX vega risk factors, namely, the option maturity tenors, can be correlated using
+the matrix algorithm. Since the correlation between two given tenors is <span class='cmti-10x-x-109'>completely</span>
+independent of the two underlyings, we have \(C_s = C_d = C\), ie. \(C_s - C_d = 0\). Hence the fundamental formula
+becomes:
+</p><!-- l. 29 --><p class='noindent'>\begin {equation}  \begin {aligned} K_b^2 &amp;= \sum _u \Big \{ \textbf {w}_u \: \left ( C_s - C_d \right ) \: \textbf {w}_u^T \Big \} + \textbf {w}_b \: C_d \: \textbf {w}_b^T \\ &amp;= \textbf {w}_b \: C \: \textbf {w}_b^T \end {aligned}  \end {equation}<a id='x1-15001r2'></a>
+</p><!-- l. 31 --><p class='noindent'>So we are just left with the bucket-level contribution, which in the matrix formulation is \(W_b \: C \: W_b^T\)
+(where \(W_b\) is the matrix of stacked, bucket-aggregated \(\textbf {w}_b\) vectors)
+</p><!-- l. 34 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>4.3   </span> <a id='x1-160004.3'></a>FX Curvature</h3>
+<!-- l. 36 --><p class='noindent'>Similar to the delta case, there is only one risk factor per bucket so there are no intra-bucket
+correlation cross-terms:
+</p><!-- l. 44 --><p class='noindent'>\begin {equation}  \begin {aligned} K_b^2 &amp;= \sum _k w_k^{(+)2} = w^{(+)2} \\ K_b &amp;= w^{(+)} \end {aligned}  \end {equation}<a id='x1-16001r3'></a>
+</p><!-- l. 46 --><p class='noindent'>where
+</p><!-- l. 53 --><p class='noindent'>\begin {equation}  w^{(+)} = \begin {cases} \mathrm {max} \left (\mathrm {CVR}^+, 0 \right ) &amp; \text {`up' scenario} \\ \mathrm {max} \left (\mathrm {CVR}^-, 0 \right ) &amp; \text {`down' scenario} \end {cases}  \end {equation}<a id='x1-16002r4'></a>
+                                                                                
+
+                                                                                
+</p><!-- l. 55 --><p class='noindent'>\(K_b\) should be computed for both the ‘up’ and ‘down’ scenarios, with the larger of the two used to
+obtain \(K_b\) for each bucket. One additional point to note is that the FRTB specification allows for
+the FX \(\mathrm {CVR}^+\) and \(\mathrm {CVR}^-\) to be divided by a factor of \(1.5\) under certain circumstances (see latest version of
+the specification for details).
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+</p>
+<h2 class='chapterHead'><span class='titlemark'>Chapter 5</span><br /><a id='x1-170005'></a>Equity Risk</h2>
+<h3 class='sectionHead'><span class='titlemark'>5.1   </span> <a id='x1-180005.1'></a>Equity Delta</h3>
+<!-- l. 5 --><p class='noindent'>Equity delta is one of those risk types which has a second risk factor axis in addition to the
+underlying: the risk factor type, ‘SPOT’ and ‘REPO’ (for repurchase agreements).
+Decomposing the intra-bucket correlation further is overkill in this case; it is easier to
+denormalise the risk into a two-element vector to accommodate both values. This necessitates
+constructing \(2\textrm {x}2\) \(C_s\) and \(C_d\) intra-bucket correlation matrices, which contain the spot-spot, repo-repo
+and spot-repo \(\rho \) values.
+</p><!-- l. 11 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>5.2   </span> <a id='x1-190005.2'></a>Equity Vega</h3>
+<!-- l. 13 --><p class='noindent'>Equity vega excludes repo, so the risk factors are just the Equity spot option tenors. To
+calculate the risk position for each bucket, all that is required is to aggregate the vega risk
+weighted sensitivity vectors at the underlying and bucket levels, and use these in conjunction
+with the \(C_s\) and \(C_d\) intra-bucket correlation matrices.
+</p><!-- l. 17 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>5.3   </span> <a id='x1-200005.3'></a>Equity Curvature</h3>
+<!-- l. 19 --><p class='noindent'>Leverage the generic curvature risk charge logic.
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+</p>
+<h2 class='chapterHead'><span class='titlemark'>Chapter 6</span><br /><a id='x1-210006'></a>GIRR: General Interest Rate Risk</h2>
+<h3 class='sectionHead'><span class='titlemark'>6.1   </span> <a id='x1-220006.1'></a>GIRR Delta</h3>
+<!-- l. 5 --><p class='noindent'>GIRR, like Equity, has an additional risk factor type axis, however in this case
+de-normalisation is necessary rather than optional. This is due to the fact that two of these
+types, ‘BASIS’ and ‘INFLATION’, are flattened by summing over all the tenors,
+whereas ‘YIELD’ retains its term structure. If there are \(N\) yield tenors, then we must
+construct a vector of size \(N+2\), where the first \(N\) elements contain the the yield risk, and the
+remaining two elements contain the rolled-up basis and inflation risk. Then we must
+construct the associated \(C_s\) and \(C_d\) intra-bucket correlation matrices, which have dimension
+\(N+2\).
+</p><!-- l. 12 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>6.2   </span> <a id='x1-230006.2'></a>GIRR Vega</h3>
+<!-- l. 14 --><p class='noindent'>GIRR vega is slightly more complex than that of the other risk classes, as it involves two tenor
+axes: the option maturity and the residual maturity of the underlying of the option at the
+(option) expiry date. Once again, the BASIS and YIELD types are reduced, but not to a
+single number: we sum over the underlying maturity tenors to leave one risk value per option
+maturity tenor. So if there are \(M\) underlying maturity tenors and \(N\) option maturity tenors, we
+now construct a vector of size \(MN+N+N = (M+2)N\): the first \(MN\) elements contain the \(M\) sets of \(N\) yield risk values,
+followed by flattened \(N\) basis and \(N\) inflation risk values. And of course we must construct the
+associated \(C_s\) and \(C_d\) intra-bucket correlation matrices, which must have the same dimension
+\((M+2)N\).
+</p><!-- l. 22 --><p class='noindent'>Like the FX case, GIRR vega has no dependency on the underlyings (\(C_s = C_d\)), so we only need to
+correlate the bucket-level net weighted risk.
+</p><!-- l. 25 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>6.3   </span> <a id='x1-240006.3'></a>GIRR Curvature</h3>
+<!-- l. 27 --><p class='noindent'>Since the risk factor coincides with the GIRR bucket, there are no intra-bucket correlation
+cross-terms, so \(K_b\) reduces to \(w^{(+)}\) for each of the ‘up’ and ‘down’ scenarios.
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+</p>
+<h2 class='chapterHead'><span class='titlemark'>Chapter 7</span><br /><a id='x1-250007'></a>Commodity Risk</h2>
+<h3 class='sectionHead'><span class='titlemark'>7.1   </span> <a id='x1-260007.1'></a>Commodity Delta</h3>
+<!-- l. 5 --><p class='noindent'>Commodity delta has the additional location axis, which leads to four intra-bucket correlation
+matrices: \(C_{ss}\), \(C_{sd}\), \(C_{ds}\) and \(C_{dd}\). The risk vector aggregation is particularly simple, since we have no
+de-normalisation to carry out.
+</p><!-- l. 9 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>7.2   </span> <a id='x1-270007.2'></a>Commodity Vega</h3>
+<!-- l. 11 --><p class='noindent'>Commodity vega is straightforward, as both the location and maturity of the option’s
+underlying are ignored, leaving the usual underlying option tenor aggregation.
+</p><!-- l. 14 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>7.3   </span> <a id='x1-280007.3'></a>Commodity Curvature</h3>
+<!-- l. 16 --><p class='noindent'>Leverage the generic curvature risk charge logic.
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+</p>
+<h2 class='chapterHead'><span class='titlemark'>Chapter 8</span><br /><a id='x1-290008'></a>Credit Spread Risk</h2>
+<h3 class='sectionHead'><span class='titlemark'>8.1   </span> <a id='x1-300008.1'></a>Non-Securitised</h3>
+<!-- l. 5 --><p class='noindent'>
+</p>
+<h4 class='subsectionHead'><span class='titlemark'>8.1.1   </span> <a id='x1-310008.1.1'></a>CSR Non-Securitised Delta</h4>
+<!-- l. 7 --><p class='noindent'>CSR non-securitised delta has two risk factor types, ‘BOND’ and ‘CDS’, each of which has the
+same set of tenors. We de-normalise these vectors of \(N\) tenors into a vector of size \(2N\); the
+first \(N\) elements contains the BOND risk, the latter \(N\) the CDS risk. Then we must
+construct the associated \(C_s\) and \(C_d\) intra-bucket correlation matrices, which have dimension
+\(2N\).
+</p><!-- l. 12 --><p class='noindent'>
+</p>
+<h4 class='subsectionHead'><span class='titlemark'>8.1.2   </span> <a id='x1-320008.1.2'></a>CSR Non-Securitised Vega</h4>
+<!-- l. 14 --><p class='noindent'>Similar to the delta case above.
+</p><!-- l. 16 --><p class='noindent'>
+</p>
+<h4 class='subsectionHead'><span class='titlemark'>8.1.3   </span> <a id='x1-330008.1.3'></a>CSR Non-Securitised Curvature</h4>
+<!-- l. 18 --><p class='noindent'>Leverage the generic curvature risk charge logic.
+</p><!-- l. 21 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>8.2   </span> <a id='x1-340008.2'></a>Securitised Non-CTP</h3>
+                                                                                
+
+                                                                                
+<!-- l. 23 --><p class='noindent'>
+</p>
+<h4 class='subsectionHead'><span class='titlemark'>8.2.1   </span> <a id='x1-350008.2.1'></a>CSR Securitised Non-CTP Delta</h4>
+<!-- l. 25 --><p class='noindent'>See the CSR Non-Securitised description.
+</p><!-- l. 27 --><p class='noindent'>Regarding the inter-bucket correlation, despite the FRTB specification stating that \(\gamma _{bc} = 0\) for <span class='cmti-10x-x-109'>all</span> \(b, c\) we
+prefer to just look up the correlation matrix as per usual, instead of ignoring this altogether.
+The reason for this is simple: there may be other jurisdictions where this is <span class='cmti-10x-x-109'>not </span>the case, so it
+is safer to use the generic algorithm (as already discussed, in comparison to the intra-bucket
+case, this matrix multiplication is not time consuming). This decision contrasts
+with the overrides we used in some of the FX and GIRR calculations. However,
+in these cases our correlation was trivial due to there being only <span class='cmti-10x-x-109'>one </span>risk factor.
+In general, where we see that a risk weight or correlation is zero in one particular
+specification, we do not assume that this is universally true across all regulators and
+jurisdictions.
+</p><!-- l. 36 --><p class='noindent'>
+</p>
+<h4 class='subsectionHead'><span class='titlemark'>8.2.2   </span> <a id='x1-360008.2.2'></a>CSR Securitised Non-CTP Vega</h4>
+<!-- l. 38 --><p class='noindent'>Similar to the delta case above.
+</p><!-- l. 40 --><p class='noindent'>
+</p>
+<h4 class='subsectionHead'><span class='titlemark'>8.2.3   </span> <a id='x1-370008.2.3'></a>CSR Securitised Non-CTP Curvature</h4>
+<!-- l. 42 --><p class='noindent'>Leverage the generic curvature risk charge logic.
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+</p>
+<h2 class='chapterHead'><span class='titlemark'>Chapter 9</span><br /><a id='x1-380009'></a>DRC: Default Risk Charge</h2>
+<h3 class='sectionHead'><span class='titlemark'>9.1   </span> <a id='x1-390009.1'></a>Non-Securitised</h3>
+<!-- l. 5 --><p class='noindent'>DRC is all about netting the Jump to Default (JTD) risk into long and short positions,
+with suitable risk weighting, within a particular bucket. A simple formula is used to
+calculate the bucket risk charge (which allows for limited hedging of the long position
+with the short position). The bucket risk charges are then summed to get the total
+default risk charge. Note that the JTD values are scaled to account for varying
+expiry dates, with a floor of 3 months (0.25) and a ceiling of 1.0 for 12 months and
+beyond.
+</p><!-- l. 11 --><p class='noindent'>For non-securitised DRC, we must net on the <span class='cmti-10x-x-109'>obligor</span>. An additional complication arises due to
+the JTD having an associated <span class='cmti-10x-x-109'>seniority</span>, which means the JTD values for each obligor must be
+sorted by seniority before applying the prescribed netting algorithm. This requires either
+sorting the entire dataset by the seniority ranking before aggregating, or sorting within the
+aggregation function. The full DRC input dataset is often large, so either approach is going to
+slow down the calculation. An alternative is to pivot the dataset so that the columns
+represent the seniority, then sort the columns. If we assume that there are of the order
+of ten different seniorities, then we are left with a very small collection to sort, in
+contrast to sorting potentially hundreds of thousands of rows. Finally, we can walk
+through the pivoted dataset column by column, applying the netting algorithm in a
+vectorised fashion. We only need to compute the net long JTD in this fashion, as we can
+calculate the net short JTD as the difference between the net JTD and the net long
+JTD.
+</p><!-- l. 22 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>9.2   </span> <a id='x1-400009.2'></a>Securitised Non-CTP</h3>
+<!-- l. 24 --><p class='noindent'>Similar to non-securitised, but netting on the <span class='cmti-10x-x-109'>tranche </span>instead of the obligor, with no seniority
+ranking.
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+</p>
+<h2 class='chapterHead'><span class='titlemark'>Chapter 10</span><br /><a id='x1-4100010'></a>Implementation</h2>
+<!-- l. 3 --><p class='noindent'>There are three key components in any FRTB implementation:
+</p>
+     <ul class='itemize1'>
+     <li class='itemize'>Generation of the daily risk values
+     </li>
+     <li class='itemize'>ETL process to load the risk values + trade attributes into an aggregation engine
+     </li>
+     <li class='itemize'>Aggregation engine which computes the risk positions and overall capital charge
+     across required dimensions</li></ul>
+<!-- l. 11 --><p class='noindent'>The question then arises as to how to source the risk weights, correlation coefficients and other
+calculation parameters, for a given business date and regulatory regime. Some systems, such as
+the ActiveViam FRTB Accelerator (built on top of their ActivePivot OLAP cube technology)
+load this via property files. With such an approach, the data in each property file is tagged
+with ‘valid from’ and ‘valid to’ dates, to allow for the possibility of these values being
+date-specific.
+</p><!-- l. 17 --><p class='noindent'>Despite being typically very static, the alternative approach of adding this data to the ETL
+stage has merit. For a start, it greatly simplifies the aggregation engine: since the
+configuration is treated as input data, on a par with the daily risk values, it is not
+something that has to be looked up and/or derived (or worse still, hardcoded in the
+implementation). There is also a benefit in having this data siloed and owned by
+a distinct team, whose responsibility is keeping abreast of regulatory changes. It
+is better to have a business user publish a parameter update in some upstream
+system, rather than have a developer modify a properties file in the aggregation
+engine.
+</p><!-- l. 24 --><p class='noindent'>So much for the input data and calculation parameters, what of the calculation itself?
+While it may be possible to shoehorn the required inputs for each risk class into a
+unified scheme - which would allow the risk values to be received in one large dataset
+- it’s desirable to split these up by risk class and risk type, e.g. FX delta, GIRR
+Vega, etc. These would then be passed individually to the analytics library, along
+with the risk weights, correlations and calculation parameters. The output from
+the library will obviously be discretised at the same level, for each stress scenario,
+which leaves the aggregation engine to combine the results and compute the final
+capital charge. This will also involve choosing between the low, medium and high
+                                                                                
+
+                                                                                
+scenarios.
+</p><!-- l. 32 --><p class='noindent'>The downstream users of the system will typically use MDX queries and/or Excel XMLA
+requests to view the results.
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+</p>
+<h2 class='chapterHead'><span class='titlemark'>Chapter 11</span><br /><a id='x1-4200011'></a>Conclusion</h2>
+<!-- l. 3 --><p class='noindent'>In this document we have shown how SBM formulae can be translated into algorithms which
+run in linear time. We have also detailed a way of calculating risk charges across desks, books,
+etc using one bulk calculation, therefore avoiding the need to iterate over (possibly numerous)
+datasets.
+</p><!-- l. 7 --><p class='noindent'>In order to compute the overall FRTB SA risk charge, all that remains is to add the Default
+Risk Charge (DRC) and the Residual Risk Add-on (RRAO), which we have not discussed here
+(but are trivial in comparison to SBM, particularly RRAO).
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+</p>
  
 </body> 
 </html>

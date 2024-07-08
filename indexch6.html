@@ -1,0 +1,58 @@
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head><title>6 GIRR: General Interest Rate Risk</title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='index.css' rel='stylesheet' type='text/css' /> 
+<meta content='index.tex' name='src' /> 
+<script>window.MathJax = { tex: { tags: "ams", }, }; </script> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js' type='text/javascript'></script>  
+</head><body>
+<!-- l. 1 --><div class='crosslinks'><p class='noindent'>[<a href='indexch9.html'>next</a>] [<a href='indexch5.html'>prev</a>] [<a href='indexch5.html#tailindexch5.html'>prev-tail</a>] [<a href='indexch4.html#tailindexch6.html'>tail</a>] [<a href='index.html#indexch8.html'>up</a>] </p></div>
+<h2 class='chapterHead'><span class='titlemark'>Chapter 6</span><br /><a id='x10-210006'></a>GIRR: General Interest Rate Risk</h2>
+<h3 class='sectionHead'><span class='titlemark'>6.1   </span> <a id='x10-220006.1'></a>GIRR Delta</h3>
+<!-- l. 5 --><p class='noindent'>GIRR, like Equity, has an additional risk factor type axis, however in this case
+de-normalisation is necessary rather than optional. This is due to the fact that two of these
+types, ‘BASIS’ and ‘INFLATION’, are flattened by summing over all the tenors,
+whereas ‘YIELD’ retains its term structure. If there are \(N\) yield tenors, then we must
+construct a vector of size \(N+2\), where the first \(N\) elements contain the the yield risk, and the
+remaining two elements contain the rolled-up basis and inflation risk. Then we must
+construct the associated \(C_s\) and \(C_d\) intra-bucket correlation matrices, which have dimension
+\(N+2\).
+</p><!-- l. 12 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>6.2   </span> <a id='x10-230006.2'></a>GIRR Vega</h3>
+<!-- l. 14 --><p class='noindent'>GIRR vega is slightly more complex than that of the other risk classes, as it involves two tenor
+axes: the option maturity and the residual maturity of the underlying of the option at the
+(option) expiry date. Once again, the BASIS and YIELD types are reduced, but not to a
+single number: we sum over the underlying maturity tenors to leave one risk value per option
+maturity tenor. So if there are \(M\) underlying maturity tenors and \(N\) option maturity tenors, we
+now construct a vector of size \(MN+N+N = (M+2)N\): the first \(MN\) elements contain the \(M\) sets of \(N\) yield risk values,
+followed by flattened \(N\) basis and \(N\) inflation risk values. And of course we must construct the
+associated \(C_s\) and \(C_d\) intra-bucket correlation matrices, which must have the same dimension
+\((M+2)N\).
+</p><!-- l. 22 --><p class='noindent'>Like the FX case, GIRR vega has no dependency on the underlyings (\(C_s = C_d\)), so we only need to
+correlate the bucket-level net weighted risk.
+</p><!-- l. 25 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>6.3   </span> <a id='x10-240006.3'></a>GIRR Curvature</h3>
+<!-- l. 27 --><p class='noindent'>Since the risk factor coincides with the GIRR bucket, there are no intra-bucket correlation
+cross-terms, so \(K_b\) reduces to \(w^{(+)}\) for each of the ‘up’ and ‘down’ scenarios.
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+</p>
+<!-- l. 1 --><div class='crosslinks'><p class='noindent'>[<a href='indexch9.html'>next</a>] [<a href='indexch5.html'>prev</a>] [<a href='indexch5.html#tailindexch5.html'>prev-tail</a>] [<a href='indexch6.html'>front</a>] [<a href='index.html#indexch8.html'>up</a>] </p></div>
+<!-- l. 1 --><p class='noindent'><a id='tailindexch6.html'></a> </p> 
+</body> 
+</html>

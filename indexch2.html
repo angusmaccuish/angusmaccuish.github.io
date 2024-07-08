@@ -1,0 +1,252 @@
+<!DOCTYPE html> 
+<html lang='en-US' xml:lang='en-US'> 
+<head><title>2 Intra-Bucket Aggregation</title> 
+<meta charset='utf-8' /> 
+<meta content='TeX4ht (https://tug.org/tex4ht/)' name='generator' /> 
+<meta content='width=device-width,initial-scale=1' name='viewport' /> 
+<link href='index.css' rel='stylesheet' type='text/css' /> 
+<meta content='index.tex' name='src' /> 
+<script>window.MathJax = { tex: { tags: "ams", }, }; </script> 
+ <script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js' type='text/javascript'></script>  
+</head><body>
+<!-- l. 1 --><div class='crosslinks'><p class='noindent'>[<a href='indexch5.html'>next</a>] [<a href='indexch1.html'>prev</a>] [<a href='indexch1.html#tailindexch1.html'>prev-tail</a>] [<a href='#tailindexch2.html'>tail</a>] [<a href='index.html#indexch4.html'>up</a>] </p></div>
+<h2 class='chapterHead'><span class='titlemark'>Chapter 2</span><br /><a id='x6-30002'></a>Intra-Bucket Aggregation</h2>
+<h3 class='sectionHead'><span class='titlemark'>2.1   </span> <a id='x6-40002.1'></a>Delta/Vega Risk</h3>
+<!-- l. 5 --><p class='noindent'>
+</p>
+<h4 class='subsectionHead'><span class='titlemark'>2.1.1   </span> <a id='x6-50002.1.1'></a>Partitioning the Intra-bucket Correlation Matrix</h4>
+<!-- l. 7 --><p class='noindent'>Consider the formula for the delta/vega intra-bucket risk position for bucket \(b\): \begin {equation}  \begin {aligned} K_b^2 &amp;= \mathrm {max} \left ( 0, \: \sum _k \text {WS}_k^2 + \sum _{\substack {k,l \\ l \ne k}} \rho _{kl} \text {WS}_k \text {WS}_l \right ) \\ &amp;= \mathrm {max} \left ( 0, \: \sum _{k,l} \rho _{kl} \text {WS}_k \text {WS}_l \right ) \\ &amp;= \mathrm {max} \left ( 0, \: \textbf {w}^T \: C \: \textbf {w} \right ) \end {aligned}  \end {equation}<a id='x6-5001r1'></a>
+</p><!-- l. 16 --><p class='noindent'>where \(\textbf {w}\) is the column vector of risk-weighted sensitivities (\(\text {WS}\)), and \(C\) is the intra-bucket (\(\rho \))
+correlation matrix, with \(\rho _{ij} = 1\) if \(i = j\). We use the word ‘correlation’ loosely, for example in the
+inter-bucket chapter we will actually choose the diagonal values of the matrix to be zero! So
+these matrices may not be positive semi-definite.
+</p><!-- l. 21 --><p class='noindent'>In the implementation of what follows, it is actually easier to convert \(\textbf {w}\) into a row vector, i.e. \(K_b^2 = \textbf {w} \: C \: \textbf {w}^T\),
+where from now on we drop the \(\mathrm {max}\) function and assume that this is implicit.
+</p><!-- l. 25 --><p class='noindent'>Next we partition \(C\) and \(\textbf {w}\) by underlying, where \(\textbf {w}_u\) is the weighted sensitivities row vector for
+underlying \(u\), and \(C_s\) and \(C_d\) are the correlation sub-matrices for the case of the same underlying,
+and different underlyings, respectively. We are at liberty to do this due to the fact that
+the correlations are independent of the <span class='cmti-10x-x-109'>actual </span>underlyings; we need only concern
+ourselves with whether or not the correlation is related to the <span class='cmti-10x-x-109'>same </span>underlying or
+not.
+</p><!-- l. 38 --><p class='noindent'>\begin {equation}  C = \begin {bmatrix} C_s &amp; C_d &amp; \ldots &amp; C_d \\ C_d &amp; C_s &amp; \ldots &amp; C_d \\ \vdots &amp; \vdots &amp; \ddots &amp; C_d \\ C_d &amp; C_d &amp; \ldots &amp; C_s \end {bmatrix}  \end {equation}<a id='x6-5002r2'></a>
+</p><!-- l. 47 --><p class='noindent'>\begin {equation}  \textbf {w} = \begin {bmatrix} \textbf {w}_1 &amp; \textbf {w}_2 &amp; \ldots &amp; \textbf {w}_n \end {bmatrix}  \end {equation}<a id='x6-5003r3'></a>
+</p><!-- l. 49 --><p class='noindent'>Remembering that we have switched from column to row \(\textbf {w}_u\) vectors:
+</p><!-- l. 70 --><p class='noindent'>\begin {equation}  K_b^2 = \begin {bmatrix} \textbf {w}_1 &amp; \textbf {w}_2 &amp; \ldots &amp; \textbf {w}_n \end {bmatrix} \begin {bmatrix} C_s &amp; C_d &amp; \ldots &amp; C_d \\ C_d &amp; C_s &amp; \ldots &amp; C_d \\ \vdots &amp; \vdots &amp; \ddots &amp; C_d \\ C_d &amp; C_d &amp; \ldots &amp; C_s \end {bmatrix} \begin {bmatrix} \textbf {w}_1^T \\ \textbf {w}_2^T \\ \ldots \\ \textbf {w}_n^T \end {bmatrix}  \end {equation}<a id='x6-5004r4'></a>
+</p><!-- l. 72 --><p class='noindent'>Now
+</p><!-- l. 95 --><p class='noindent'>\begin {equation}  \begin {aligned} C &amp;= \begin {bmatrix} C_s &amp; C_d &amp; \ldots &amp; C_d \\ C_d &amp; C_s &amp; \ldots &amp; C_d \\ \vdots &amp; \vdots &amp; \ddots &amp; C_d \\ C_d &amp; C_d &amp; \ldots &amp; C_s \end {bmatrix} &amp;= \begin {bmatrix} C_s - C_d &amp; 0 &amp; \ldots &amp; 0 \\ 0 &amp; C_s - C_d &amp; \ldots &amp; 0 \\ \vdots &amp; \vdots &amp; \ddots &amp; 0 \\ 0 &amp; 0 &amp; \ldots &amp; C_s - C_d \end {bmatrix} + \begin {bmatrix} C_d &amp; C_d &amp; \ldots &amp; C_d \\ C_d &amp; C_d &amp; \ldots &amp; C_d \\ \vdots &amp; \vdots &amp; \ddots &amp; C_d \\ C_d &amp; C_d &amp; \ldots &amp; C_d \end {bmatrix} \end {aligned}  \end {equation}<a id='x6-5005r5'></a>
+</p><!-- l. 97 --><p class='noindent'>Finally:
+</p><!-- l. 130 --><p class='noindent'>\begin {equation}  \begin {aligned} K_b^2 &amp;= \textbf {w} \: C \: \textbf {w}^T \\[10pt] &amp;= \begin {bmatrix} \textbf {w}_1 &amp; \textbf {w}_2 &amp; \ldots &amp; \textbf {w}_n \end {bmatrix} \left ( \begin {bmatrix} C_s - C_d &amp; 0 &amp; \ldots &amp; 0 \\ 0 &amp; C_s - C_d &amp; \ldots &amp; 0 \\ \vdots &amp; \vdots &amp; \ddots &amp; 0 \\ 0 &amp; 0 &amp; \ldots &amp; C_s - C_d \end {bmatrix} + \begin {bmatrix} C_d &amp; C_d &amp; \ldots &amp; C_d \\ C_d &amp; C_d &amp; \ldots &amp; C_d \\ \vdots &amp; \vdots &amp; \ddots &amp; C_d \\ C_d &amp; C_d &amp; \ldots &amp; C_d \end {bmatrix} \right ) \begin {bmatrix} \textbf {w}_1^T \\ \textbf {w}_2^T \\ \vdots \\ \textbf {w}_n^T \end {bmatrix} \\[10pt] &amp;= \sum _u \Big \{ \textbf {w}_u \: \left ( C_s - C_d \right ) \: \textbf {w}_u^T \Big \} + \left ( \sum _u \textbf {w}_u \right ) \: C_d \: \left ( \sum _u \textbf {w}_u \right )^T \end {aligned}  \end {equation}<a id='x6-5006r6'></a>
+</p><!-- l. 132 --><p class='noindent'>Defining \(\textbf {w}_b = \sum _u \textbf {w}_u\) (the aggregated weighted sensitivities over all underlyings in the bucket):
+</p><!-- l. 137 --><p class='noindent'>\begin {equation}  K_b^2 = \sum _u \Big \{ \textbf {w}_u \: \left ( C_s - C_d \right ) \: \textbf {w}_u^T \Big \} + \textbf {w}_b \: C_d \: \textbf {w}_b^T  \end {equation}<a id='x6-5007r7'></a>
+                                                                                
+
+                                                                                
+</p><!-- l. 139 --><p class='noindent'>For what follows, it will be more convenient for us to convert the sum (left-hand term)
+into a matrix trace (\(\mathrm {Tr}\)). Let \(W\) be the matrix obtained by stacking all the \(\textbf {w}_u\) row vectors
+together:
+</p><!-- l. 152 --><p class='noindent'>\begin {equation}  \begin {aligned} W &amp;= \begin {bmatrix} \textbf {w}_1 \\ \textbf {w}_2 \\ \vdots \\ \textbf {w}_n \end {bmatrix} \\[10pt] K_b^2 &amp;= \mathrm {Tr} \left ( W \: (C_s - C_d) \: W^T \right ) + \textbf {w}_b \: C_d \: \textbf {w}_b^T \end {aligned}  \end {equation}<a id='x6-5008r8'></a>
+</p><!-- l. 154 --><p class='noindent'>Now for the pivotal step: so far, this risk position calculation has been for <span class='cmti-10x-x-109'>one </span>group, and a
+natural next step would be to iterate over all the groups and combine the results. However, if
+we stack the \(W\) weighted sensis matrix for each group into one larger matrix, then we can
+correlate all the groups in one calculation.
+</p><!-- l. 158 --><p class='noindent'>Define
+</p><!-- l. 167 --><p class='noindent'>\begin {equation}  W = \begin {bmatrix} \text {W}_{G_1} \\ \text {W}_{G_2} \\ \vdots \\ \text {W}_{G_n} \end {bmatrix}  \end {equation}<a id='x6-5009r9'></a>
+</p><!-- l. 169 --><p class='noindent'>where \(\text {W}_{G_k}\) is the \(W\) matrix for Group \(G_k\).
+</p><!-- l. 171 --><p class='noindent'>Now, \(W \: \left ( C_s - C_d \right ) \: W^T\) returns a matrix whose diagonal contains the values we require in order to calculate the
+risk position for each group. In the single group case above, we had to compute the trace of
+the matrix: now we must compute the trace of each sub-matrix on the diagonal. For
+example if we have 2 groups, one with 5 underlyings and the other with 10, the first
+5 elements of the diagonal should be added together to obtain the contribution
+pertaining to the first group, and similarly the latter 10 elements for the second
+group.
+</p><!-- l. 177 --><p class='noindent'>For the second term, \(W_b \: C_d \: W_b^T\), (where \(W_b\) is the matrix of stacked \(\textbf {w}_b\)) the diagonal contains one value per
+group. So if there are \(N\) groups, then the first diagonal element is the Group 1 value, the second
+is the Group 2 value, and so on up to Group \(N\).
+</p><!-- l. 181 --><p class='noindent'>Recall that this calculation was for a specific bucket \(b\), and in general should be repeated for
+each distinct bucket. However, in the case where \(\rho \) is not bucket-dependent, it is possible
+to compute the matrix formulae across all buckets in one go (like we did for the
+distinct groups). This is indeed the case for FX and GIRR, which is fortunate as
+both of these risk classes can have many buckets (currencies), offering a significant
+speed-up.
+</p><!-- l. 186 --><p class='noindent'>
+</p>
+<h4 class='subsectionHead'><span class='titlemark'>2.1.2   </span> <a id='x6-60002.1.2'></a>Further Partitioning of the Intra-bucket Correlation Matrix</h4>
+<!-- l. 188 --><p class='noindent'>There are cases where the correlation is across multiple axes, for example Commodity delta
+(underlying and <span class='cmti-10x-x-109'>location</span>). When this additional axis is ‘fixed’, for example CSR (the ‘BOND’
+and ‘CDS’ basis), then it is easier to denormalise these and incorporate them into the tenor
+axis (this will be discussed in the implementation sections). However, for axes which are less
+rigid, such as the Commodity location, these should be on a par with the underlying axis and
+treated in the same way. This means further decomposition of the correlation matrix
+                                                                                
+
+                                                                                
+and weighted sensitivity vectors. Choosing the Commodity delta risk type as our
+archetypal example, we need to decompose along the underlying axis, and then
+along the location axis. For example, \(C_s\) and \(C_d\) were our correlation sub-matrices for the
+same and different underlying, respectively; these must now be further decomposed
+into \(C_{ss}\), \(C_{sd}\), \(C_{ds}\) and \(C_{dd}\), where the additional \(s,d\) labels relate to same and different locations,
+respectively. For the avoidance of doubt, \(C_{ds}\) is the correlation sub-matrix for different
+underlyings with the same location, with \(C_{sd}\) the same underlying, but different locations,
+etc.
+</p><!-- l. 200 --><p class='noindent'>Recall
+</p><!-- l. 207 --><p class='noindent'>\begin {equation}  \begin {aligned} K_b^2 &amp;= \textbf {w} \: C \: \textbf {w}^T \\[10pt] &amp;= \sum _u \Big \{ \textbf {w}_u \: \left ( C_s - C_d \right ) \: \textbf {w}_u^T \Big \} + \left ( \sum _u \textbf {w}_u \right ) \: C_d \: \left ( \sum _u \textbf {w}_u \right )^T \end {aligned}  \end {equation}<a id='x6-6001r10'></a>
+</p><!-- l. 209 --><p class='noindent'>Notice that the linearised formula contains terms of the form as \(\textbf {w} \: C \: \textbf {w}^T\):
+</p><!-- l. 213 --><p class='noindent'>\begin {equation}  \textbf {w}_u \: \left ( C_s - C_d \right ) \: \textbf {w}_u^T  \end {equation}<a id='x6-6002r11'></a>
+</p><!-- l. 215 --><p class='noindent'>and
+</p><!-- l. 219 --><p class='noindent'>\begin {equation}  \left ( \sum _u \textbf {w}_u \right ) \: C_d \: \left ( \sum _u \textbf {w}_u \right )^T  \end {equation}<a id='x6-6003r12'></a>
+</p><!-- l. 221 --><p class='noindent'>So in order to decompose the correlation further, we can just apply the same linear formula to
+both of these terms. Note that the additional \(v\) index refers to the location, so \(\textbf {w}_{u,v}\) is the weighted
+sensitivity vector relating to underlying \(u\) at location \(v\).
+</p><!-- l. 232 --><p class='noindent'>\begin {equation}  \begin {aligned} \textbf {w}_u \: (C_s - C_d) \: \textbf {w}_u^T &amp;= \sum _v \Big \{ \textbf {w}_{u,v} \: \left ( \left ( C_{ss} - C_{ds} \right ) - \left ( C_{sd} - C_{dd} \right ) \right ) \: \textbf {w}_{u,v}^T \Big \} \\ &amp; \qquad + \left ( \sum _v \textbf {w}_{u,v} \right ) \: \left ( C_{sd} - C_{dd} \right ) \: \left ( \sum _v \textbf {w}_{u,v} \right )^T \\[10pt] &amp;= \sum _v \Big \{ \textbf {w}_{u,v} \: \left ( C_{ss} - C_{ds} - C_{sd} + C_{dd} \right ) \: \textbf {w}_{u,v}^T \Big \} \\ &amp; \qquad + \left ( \sum _v \textbf {w}_{u,v} \right ) \: \left ( C_{sd} - C_{dd} \right ) \: \left ( \sum _v \textbf {w}_{u,v} \right )^T \end {aligned}  \end {equation}<a id='x6-6004r13'></a>
+</p><!-- l. 234 --><p class='noindent'>Alternatively, apply the recursive formula to \(\textbf {w} \: C_s \: \textbf {w}^T\) and \(\textbf {w} \: C_d \: \textbf {w}^T\) individually, then subtract.
+</p><!-- l. 237 --><p class='noindent'>Similarly,
+</p><!-- l. 244 --><p class='noindent'>\begin {equation}  \begin {aligned} \left ( \sum _u \textbf {w}_u \right ) \: C_d \: \left ( \sum _u \textbf {w}_u \right )^T &amp;= \sum _v \left \{ \left ( \sum _u \textbf {w}_{u,v} \right ) \: \left ( C_{ds} - C_{dd} \right ) \: \left ( \sum _u \textbf {w}_{u,v} \right )^T \right \} \\ &amp; \qquad + \left ( \sum _v \sum _u \textbf {w}_{u,v} \right ) \: C_{dd} \: \left ( \sum _v \sum _u \textbf {w}_{u,v} \right )^T \end {aligned}  \end {equation}<a id='x6-6005r14'></a>
+</p><!-- l. 246 --><p class='noindent'>Finally
+</p><!-- l. 255 --><p class='noindent'>\begin {equation}  \begin {aligned} K_b^2 &amp;= \textbf {w} \: C \: \textbf {w}^T \\[10pt] &amp;= \sum _u \Big \{ \textbf {w}_u \: \left ( C_s - C_d \right ) \: \textbf {w}_u^T \Big \} + \left ( \sum _u \textbf {w}_u \right ) \: C_d \: \left ( \sum _u \textbf {w}_u \right )^T \\[10pt] &amp;= \sum _u \left \{ \sum _v \Big \{\textbf {w}_{u,v} \: \left ( C_{ss} - C_{ds} - C_{sd} + C_{dd} \right ) \: \textbf {w}_{u,v}^T \Big \} + \left ( \sum _v \textbf {w}_{u,v} \right ) \: \left ( C_{sd} - C_{dd} \right ) \: \left ( \sum _v \textbf {w}_{u,v} \right )^T \right \} \\[10pt] &amp; \qquad + \sum _v \left \{ \left ( \sum _u \textbf {w}_{u,v} \right ) \: \left ( C_{ds} - C_{dd} \right ) \: \left ( \sum _u \textbf {w}_{u,v} \right )^T \right \} + \left ( \sum _{u,v} \textbf {w}_{u,v} \right ) \: C_{dd} \: \left ( \sum _{u,v} \textbf {w}_{u,v} \right )^T \end {aligned}  \end {equation}<a id='x6-6006r15'></a>
+</p><!-- l. 264 --><p class='noindent'>\begin {equation}  \begin {aligned} K_b^2 &amp;= \qquad \qquad \sum _{u,v} \Bigg \{ \textbf {w}_{u,v} \: \left ( C_{ss} - C_{ds} - C_{sd} + C_{dd} \right ) \: \textbf {w}_{u,v}^T \Bigg \} \\[10pt] &amp; \qquad + \qquad \sum _u \left \{ \left ( \sum _v \textbf {w}_{u,v} \right ) \: \left ( C_{sd} - C_{dd} \right ) \: \left ( \sum _v \textbf {w}_{u,v} \right )^T \right \} \\[10pt] &amp; \qquad + \qquad \sum _v \left \{ \left ( \sum _u \textbf {w}_{u,v} \right ) \: \left ( C_{ds} - C_{dd} \right ) \: \left ( \sum _u \textbf {w}_{u,v} \right )^T \right \} \\[10pt] &amp; \qquad + \qquad \qquad \left ( \sum _{u,v} \textbf {w}_{u,v} \right ) \: C_{dd} \: \left ( \sum _{u,v} \textbf {w}_{u,v} \right )^T \end {aligned}  \end {equation}<a id='x6-6007r16'></a>
+</p><!-- l. 266 --><p class='noindent'>The four components of this formula can be readily converted into the same matrix form as
+before. We can summarise the one and two axis decomposition as follows:
+</p>
+<div class='table'>
+                                                                                
+
+                                                                                
+<!-- l. 269 --><p class='noindent'></p><figure class='float'>
+                                                                                
+
+                                                                                
+
+ <table class='tabular' id='TBL-2'><colgroup id='TBL-2-1g'><col id='TBL-2-1' /><col id='TBL-2-2' /></colgroup><tr id='TBL-2-1-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-1-1' style='white-space:nowrap; text-align:left;'> <span class='cmbx-10x-x-109'>Aggregation Level </span></td><td class='td11' id='TBL-2-1-2' style='white-space:nowrap; text-align:left;'> <span class='cmbx-10x-x-109'>Matrix </span></td>
+
+</tr><tr id='TBL-2-2-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-2-1' style='white-space:nowrap; text-align:left;'> Underlying                </td><td class='td11' id='TBL-2-2-2' style='white-space:nowrap; text-align:left;'> \(C_s - C_d\)        </td>
+</tr><tr id='TBL-2-3-' style='vertical-align:baseline;'><td class='td11' id='TBL-2-3-1' style='white-space:nowrap; text-align:left;'> Bucket                     </td><td class='td11' id='TBL-2-3-2' style='white-space:nowrap; text-align:left;'> \(C_d\)        </td>
+</tr></table><a id='x6-6008r1'></a>
+<figcaption class='caption'><span class='id'>Table 2.1: </span><span class='content'>One axis (‘Underlying’)
+</span></figcaption><!-- tex4ht:label?: x6-6008r1  -->
+                                                                                
+
+                                                                                
+</figure>
+</div>
+<div class='table'>
+                                                                                
+
+                                                                                
+<!-- l. 282 --><p class='noindent'></p><figure class='float'>
+                                                                                
+
+                                                                                
+
+ <table class='tabular' id='TBL-3'><colgroup id='TBL-3-1g'><col id='TBL-3-1' /><col id='TBL-3-2' /></colgroup><tr id='TBL-3-1-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-1-1' style='white-space:nowrap; text-align:left;'> <span class='cmbx-10x-x-109'>Aggregation Level </span></td><td class='td11' id='TBL-3-1-2' style='white-space:nowrap; text-align:left;'> <span class='cmbx-10x-x-109'>Matrix </span></td>
+
+</tr><tr id='TBL-3-2-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-2-1' style='white-space:nowrap; text-align:left;'> Underlying, Other      </td><td class='td11' id='TBL-3-2-2' style='white-space:nowrap; text-align:left;'> \(C_{ss} - C_{ds} - C_{sd} + C_{dd}\)        </td>
+</tr><tr id='TBL-3-3-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-3-1' style='white-space:nowrap; text-align:left;'> Underlying                </td><td class='td11' id='TBL-3-3-2' style='white-space:nowrap; text-align:left;'> \(C_{sd} - C_{dd}\)        </td>
+</tr><tr id='TBL-3-4-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-4-1' style='white-space:nowrap; text-align:left;'> Other                      </td><td class='td11' id='TBL-3-4-2' style='white-space:nowrap; text-align:left;'> \(C_{ds} - C_{dd}\)        </td>
+</tr><tr id='TBL-3-5-' style='vertical-align:baseline;'><td class='td11' id='TBL-3-5-1' style='white-space:nowrap; text-align:left;'> Bucket                     </td><td class='td11' id='TBL-3-5-2' style='white-space:nowrap; text-align:left;'> \(C_{dd}\)        </td>
+</tr></table><a id='x6-6009r2'></a>
+<figcaption class='caption'><span class='id'>Table 2.2: </span><span class='content'>Two axes (‘Underlying’ and ‘Other’)
+</span></figcaption><!-- tex4ht:label?: x6-6009r2  -->
+                                                                                
+
+                                                                                
+</figure>
+</div>
+<!-- l. 297 --><p class='noindent'>where Bucket-level aggregation just means we sum all the decomposed weighted sensitivity
+vectors belonging to the same bucket. To continue with the Commodity delta example, the
+‘Other’ level would be the location.
+</p>
+<h3 class='sectionHead'><span class='titlemark'>2.2   </span> <a id='x6-70002.2'></a>Curvature Risk</h3>
+<!-- l. 302 --><p class='noindent'>The curvature \(\rho \)-correlation is relatively trivial: no tenors are involved as the curve is always
+flattened, and we need to aggregate at the underlying level only. The correlation matrix
+reduces to the simple form:
+</p><!-- l. 312 --><p class='noindent'>\begin {equation}  C = \begin {bmatrix} 1 &amp; \rho &amp; \ldots &amp; \rho \\ \rho &amp; 1 &amp; \ldots &amp; \rho \\ \vdots &amp; \vdots &amp; \ddots &amp; \rho \\ \rho &amp; \rho &amp; \ldots &amp; 1 \end {bmatrix}  \end {equation}<a id='x6-7001r17'></a>
+</p><!-- l. 314 --><p class='noindent'>where \(\rho \) is the correlation between two different underlyings. Although the correlation matrix
+itself is trivial, the computation has an additional subtlety which we need to take care with.
+From the FRTB specification:
+</p><!-- l. 319 --><p class='noindent'>\begin {equation}  K_b^2 = \sum _k \mathrm {max}(\mathrm {CVR}_k, 0)^2 + \sum _{\substack {k,l \\ l \ne k}} \rho _{kl} \: \mathrm {CVR}_k \: \mathrm {CVR}_l \: \psi (\mathrm {CVR}_k, \mathrm {CVR}_l)  \end {equation}<a id='x6-7002r18'></a>
+</p><!-- l. 321 --><p class='noindent'>where \(\textbf {CVR}\) is the vector of underlying net curvature risk values, and \(\psi \) is a function defined
+below. Note that this vector is \(\textbf {CVR}^+\) and \(\textbf {CVR}^-\) for the ‘up’ and the ‘down’ shocks, respectively.
+Despite these shocks differing in nature from the delta/vega sensitivities, we will
+simply refer to this vector as \(\textbf {w}\) also, to keep our notation consistent (but mostly for
+brevity).
+</p><!-- l. 326 --><p class='noindent'>There are two important differences between this formula and that of delta/vega:
+</p><!-- l. 329 --><p class='noindent'>
+     </p><dl class='enumerate'><dt class='enumerate'>
+   1. </dt><dd class='enumerate'>the \(\mathrm {max}\) function in the first term, which floors each contribution at zero
+     </dd><dt class='enumerate'>
+   2. </dt><dd class='enumerate'>the \(\psi \) function in the second term, defined as follows: \begin {equation}  \psi (\mathrm {CVR}_k, \mathrm {CVR}_l) = \begin {cases} 0 &amp; \mathrm {CVR}_k &lt; 0 \: \text {and} \: \mathrm {CVR}_l &lt; 0 \\ 1 &amp; \text {otherwise} \end {cases}  \end {equation}<a id='x6-7005r19'></a></dd></dl>
+<!-- l. 339 --><p class='noindent'>Rewriting the curvature risk position with our new notation, and introducing
+</p><!-- l. 346 --><p class='noindent'>\begin {equation}  \begin {aligned} w_k^{(+)} &amp;= \mathrm {max}(w_k, 0) \\ w_k^{(-)} &amp;= \mathrm {min}(w_k, 0) \end {aligned}  \end {equation}<a id='x6-7006r20'></a>
+</p><!-- l. 359 --><p class='noindent'>\begin {equation}  \begin {aligned} K_b^2 &amp;= \sum _k \mathrm {max}(\mathrm {CVR}_k, 0)^2 + \sum _{\substack {k,l \\ l \ne k}} \rho _{kl} \: \mathrm {CVR}_k \: \mathrm {CVR}_l \: \psi (\mathrm {CVR}_k, \mathrm {CVR}_l) \\ &amp;= \sum _k \mathrm {max}(w_k, 0)^2 + \sum _{\substack {k,l \\ l \ne k}} \rho _{kl} \: w_k \: w_l \: \psi (w_k, w_l) \\ &amp;= \sum _k w_k^{(+)2} + \sum _{\substack {k,l \\ l \ne k}} \rho _{kl} \: w_k \: w_l \: \psi (w_k, w_l) \\ &amp;= \sum _k w_k^{(+)2} + \sum _{k,l} \rho _{kl} \: w_k \: w_l \: \psi (w_k, w_l) - \sum _k w_k^2 \: \psi (w_k, w_k) \\ &amp;= \sum _k w_k^{(+)2} + \sum _{k,l} \rho _{kl} \: w_k \: w_l \: \psi (w_k, w_l) - \sum _k w_k^{(+)2} \\ &amp;= \sum _{k,l} \rho _{kl} \: w_k \: w_l \: \psi (w_k, w_l) \\ &amp;= \sum _{k,l} \rho _{kl} \: w_k \: w_l - \sum _{k,l} \rho _{kl} \: w^{(-)}_k \: w^{(-)}_l \\ &amp;= \textbf {w} \: C \: \textbf {w}^T \: - \: \textbf {w}^{(-)} \: C \: \textbf {w}^{(-)T} \end {aligned}  \end {equation}<a id='x6-7007r21'></a>
+</p><!-- l. 361 --><p class='noindent'>We are now ready to substitute the curvature \(\rho \)-correlation matrix, \(C\), but not before
+decomposing it into two matrices, as we did for delta/vega:
+</p><!-- l. 401 --><p class='noindent'>\begin {equation}  \begin {aligned} C = \begin {bmatrix} 1 &amp; \rho &amp; \ldots &amp; \rho \\ \rho &amp; 1 &amp; \ldots &amp; \rho \\ \vdots &amp; \vdots &amp; \ddots &amp; \rho \\ \rho &amp; \rho &amp; \ldots &amp; 1 \end {bmatrix} &amp;= \begin {bmatrix} 1-\rho &amp; 0 &amp; \ldots &amp; 0 \\ 0 &amp; 1-\rho &amp; \ldots &amp; 0 \\ 0 &amp; \vdots &amp; \ddots &amp; 0 \\ 0 &amp; 0 &amp; \ldots &amp; 1-\rho \end {bmatrix} + \begin {bmatrix} \rho &amp; \rho &amp; \ldots &amp; \rho \\ \rho &amp; \rho &amp; \ldots &amp; \rho \\ \vdots &amp; \vdots &amp; \ddots &amp; \rho \\ \rho &amp; \rho &amp; \ldots &amp; \rho \end {bmatrix} \\[10pt] &amp;= \left ( 1-\rho \right ) \begin {bmatrix} 1 &amp; 0 &amp; \ldots &amp; 0 \\ 0 &amp; 1 &amp; \ldots &amp; 0 \\ 0 &amp; \vdots &amp; \ddots &amp; 0 \\ 0 &amp; 0 &amp; \ldots &amp; 1 \end {bmatrix} + \rho \begin {bmatrix} 1 &amp; 1 &amp; \ldots &amp; 1 \\ 1 &amp; 1 &amp; \ldots &amp; 1 \\ \vdots &amp; \vdots &amp; \ddots &amp; 1 \\ 1 &amp; 1 &amp; \ldots &amp; 1 \end {bmatrix} \end {aligned}  \end {equation}<a id='x6-7008r22'></a>
+                                                                                
+
+                                                                                
+</p><!-- l. 403 --><p class='noindent'>Let us calculate \(\textbf {w} \: C \: \textbf {w}^T\) first:
+</p><!-- l. 451 --><p class='noindent'>\begin {equation}  \begin {aligned} \textbf {w} \: C \: \textbf {w}^T &amp;= \textbf {w} \begin {bmatrix} 1 &amp; \rho &amp; \ldots &amp; \rho \\ \rho &amp; 1 &amp; \ldots &amp; \rho \\ \vdots &amp; \vdots &amp; \ddots &amp; \rho \\ \rho &amp; \rho &amp; \ldots &amp; 1 \end {bmatrix} \textbf {w}^T \\ &amp;= \textbf {w} \left ( \left ( 1 - \rho \right ) \begin {bmatrix} 1 &amp; 0 &amp; \ldots &amp; 0 \\ 0 &amp; 1 &amp; \ldots &amp; 0 \\ 0 &amp; \vdots &amp; \ddots &amp; 0 \\ 0 &amp; 0 &amp; \ldots &amp; 1 \end {bmatrix} + \rho \begin {bmatrix} 1 &amp; 1 &amp; \ldots &amp; 1 \\ 1 &amp; 1 &amp; \ldots &amp; 1 \\ \vdots &amp; \vdots &amp; \ddots &amp; 1 \\ 1 &amp; 1 &amp; \ldots &amp; 1 \end {bmatrix} \right ) \textbf {w}^T \\ &amp;= \left ( 1-\rho \right ) \textbf {w} \begin {bmatrix} 1 &amp; 0 &amp; \ldots &amp; 0 \\ 0 &amp; 1 &amp; \ldots &amp; 0 \\ 0 &amp; \vdots &amp; \ddots &amp; 0 \\ 0 &amp; 0 &amp; \ldots &amp; 1 \end {bmatrix} \textbf {w}^T + \rho \textbf {w} \begin {bmatrix} 1 &amp; 1 &amp; \ldots &amp; 1 \\ 1 &amp; 1 &amp; \ldots &amp; 1 \\ 1 &amp; \vdots &amp; \ddots &amp; 1 \\ 1 &amp; 1 &amp; \ldots &amp; 1 \end {bmatrix} \textbf {w}^T \\ &amp;= \left ( 1-\rho \right ) \sum _k w_k^2 + \rho \left ( \sum _k w_k \right )^2 \end {aligned}  \end {equation}<a id='x6-7009r23'></a>
+</p><!-- l. 453 --><p class='noindent'>Similarly
+</p><!-- l. 457 --><p class='noindent'>\begin {equation}  \textbf {w}^{(-)} \: C \: \textbf {w}^{(-)T} = (1-\rho ) \sum _k w_k^{(-)2} + \rho \left ( \sum _k w_k^{(-)} \right )^2  \end {equation}<a id='x6-7010r24'></a>
+</p><!-- l. 459 --><p class='noindent'>Finally
+</p><!-- l. 469 --><p class='noindent'>\begin {equation}  \begin {aligned} K_b^2 &amp;= \textbf {w} \: C \: \textbf {w}^T \: - \: \textbf {w}^{(-)} \: C \: \textbf {w}^{(-)T} \\ &amp;= (1-\rho ) \sum _k w_k^2 + \rho \left ( \sum _k w_k \right )^2 - \left ( (1-\rho ) \sum _k w_k^{(-)2} + \rho \left ( \sum _k w_k^{(-)} \right )^2 \right ) \\ &amp;= (1-\rho ) \left ( \sum _k w_k^2 - \sum _k w_k^{(-)2} \right ) + \rho \left \{ \left ( \sum _k w_k \right )^2 - \left ( \sum _k w_k^{(-)} \right )^2 \right \} \\ &amp;= (1-\rho ) \left ( \sum _k w_k^{(+)2} \right ) + \rho \left \{ \left ( \sum _k w_k \right )^2 - \left ( \sum _k w_k^{(-)} \right )^2 \right \} \\ &amp;= \sum _k w_k^{(+)2} + \rho \left \{ \left ( \sum _k w_k \right )^2 - \left ( \sum _k w_k^{(-)} \right )^2 - \sum _k w_k^{(+)2} \right \} \\ \end {aligned}  \end {equation}<a id='x6-7011r25'></a>
+</p><!-- l. 471 --><p class='noindent'>Inspecting this formula tells us which quantities we need to compute in order to calculate the
+curvature risk position:
+</p>
+     <ul class='itemize1'>
+     <li class='itemize'>the sum of all the sensitivities - \(\sum _k w_k\)
+     </li>
+     <li class='itemize'>the sum of the negative sensitivities - \(\sum _k w_k^{(-)}\)
+     </li>
+     <li class='itemize'>the sum of the squares of the positive sensitivities - \(\sum _k w_k^{(+)2}\)</li></ul>
+<!-- l. 479 --><p class='noindent'>Since the curvature risk position calculation is reduced to these three simple summations,
+there is no trouble in computing multiple risk positions across desks, books, etc in one single
+calculation. All that is required is that the sums are aggregated at the required levels
+before being substituted into the formula above. The resulting curvature risk position
+is \(K_b = \mathrm {max}(K_b^+, K_b^-)\), where \(K_b^+\) and \(K_b^-\) are the \(K_b\) values calculated for the ‘up’ and the ‘down’ scenarios,
+respectively.
+</p><!-- l. 485 --><p class='noindent'>
+</p>
+<h3 class='sectionHead'><span class='titlemark'>2.3   </span> <a id='x6-80002.3'></a>Summary</h3>
+<!-- l. 487 --><p class='noindent'>In this chapter we have demonstrated is that potentially enormous correlation matrices are
+avoidable, and can be replaced by small, fixed-size matrices. We have also shown that by
+suitable partitioning of the input data, we can compute the risk positions across multiple
+dimensions in one single calculation, removing the need to iterate over multiple
+                                                                                
+
+                                                                                
+datasets.
+</p><!-- l. 492 --><p class='noindent'>For each risk class/type we need to decompose the delta/vega risk factors into a set of axes:
+one of these will be the fundamental, fixed axis which will determine the size of the correlation
+matrix (for example, the GIRR delta tenors). For most cases we will only have one
+additional variable axis (namely, the ‘underlying’), for which we need to determine \(C_s\) and \(C_d\).
+For other risk types such as Commodity delta, we have an additional axis which
+requires a further decomposition of the correlation matrices. In other such cases we
+can convert the problem into the simpler case by de-normalising, which is faster to
+compute.
+</p><!-- l. 499 --><p class='noindent'>In each instance we have two tasks: construct the set of decomposed correlation
+matrices and then aggregate the weighted sensitivities at the required levels. This
+hints at a code implementation with two template methods, which handle these
+two core requirements. The remainder of the algorithm can then leverage generic
+code, with special handling for the ‘other’ bucket (where appropriate) ie. a special
+bucket for a given risk class/type where the correlation is replaced by an alternative
+aggregation.
+</p><!-- l. 505 --><p class='noindent'>Curvature risk, which on the face of it looks more complicated than delta/vega, is actually
+simpler and can be calculated without using matrices in linear time.
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+                                                                                
+
+                                                                                
+</p>
+<!-- l. 1 --><div class='crosslinks'><p class='noindent'>[<a href='indexch5.html'>next</a>] [<a href='indexch1.html'>prev</a>] [<a href='indexch1.html#tailindexch1.html'>prev-tail</a>] [<a href='indexch2.html'>front</a>] [<a href='index.html#indexch4.html'>up</a>] </p></div>
+<!-- l. 1 --><p class='noindent'><a id='tailindexch2.html'></a> </p> 
+</body> 
+</html>
